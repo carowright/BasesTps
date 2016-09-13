@@ -1,0 +1,181 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc} % para poder usar tildes en archivos UTF-8
+\usepackage[spanish]{babel} % para que comandos como \today den el resultado en castellano
+\usepackage{a4wide} % márgenes un poco más anchos que lo usual
+\usepackage[conEntregas]{caratula}
+\usepackage{ulem}
+\usepackage{amsmath} 
+\usepackage{amssymb}
+\usepackage{fancybox}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{clrscode3e}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{arydshln}
+
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+
+\lstdefinestyle{customc}{
+  belowcaptionskip=1\baselineskip,
+  breaklines=true,
+  frame=L,
+  xleftmargin=\parindent,
+  language=C,
+  showstringspaces=false,
+  basicstyle=\footnotesize\ttfamily,
+  keywordstyle=\bfseries\color{green!40!black},
+  commentstyle=\itshape\color{purple!40!black},
+  identifierstyle=\color{blue},
+  stringstyle=\color{orange},
+}
+
+\lstset{escapechar=@,style=customc}
+
+\begin{document}
+
+\titulo{Trabajo Práctico 1}
+\subtitulo{[Primera entrega]}
+
+\fecha{\today}
+
+\materia{Bases de Datos}
+\integrante{Fernandez, Esteban}{691/12}{esteban.pmf@gmail.com}
+\integrante{Marta, Cristian G.}{079/12}{cristiangmarta@gmail.com}
+\integrante{Podavini Rey, Martín Gastón}{483/12}{marto.rey2006@gmail.com}
+\integrante{Wright, Carolina Rocío}{876/12}{wright.carolina@gmail.com}
+
+\maketitle
+
+\tableofcontents
+\newpage
+
+\section{Introducción}
+
+\section{MER y MR}
+
+\subsection{Modelo de Entidad Relación}
+
+\subsection{Modelo Relacional}
+En esta sección presentamos el diseño lógico, obtenido a partir del Modelo de Entidad Relación. 
+
+Testimonio(\underline{idTestimonio}, texto, hora, fecha, \dashuline{numeroPlacaPolicia\})
+	PK = \{idTestimonio\}\\ 
+	CK = \{idTestimonio\}\\ 
+	FK = \{numeroPlacaPolicia\}\\ 
+
+\newline
+Evidencia(\underline{idEvidencia}, fechaIngreso, descripcion, fechaEncuentro, horaEncuentro, fechaSellado, horaSellado, \dashuline{idCaso})\\ 
+	PK = \{idEvidencia\} \\
+	CK = \{idEvidencia\}\\ 
+	FK = \{idCaso\}\\ 
+
+\newline
+Custodia(\underline{idCustodia}, fecha, hora, comentario, \dashuline{idEvidencia}, \dashuline{numeroPlacaPolicia})\\ 
+	PK = \{idCustodia\} \\
+	CK = \{idCustodia\}\\ 
+	FK = \{idEvidencia, numeroPlacaPolicia\}\\ 
+
+\newline
+Direccion(\underline{idDireccion}, numero, calle)\\ 
+	PK = CK = \{idDireccion\}\\ 
+
+\newline
+CasoCriminal(\underline{idCaso}, fechaIngreso, fecha, hora, lugar, descripcion, \dashuline{nombreCategoria})\\ 
+	PK = CK = \{idCaso\}\\ 
+	FK = \{nombreCategoria\}\\ 
+	
+\newline
+Congelado(\underline{\underline{idCaso}}, fecha, comentario)\\ 
+	PK = CK = \{idCaso\}\\ 
+	FK = \{idUsuario, idPublicacion\}\\ 
+
+\newline
+Descartado(\underline{\underline{idCaso}}, fecha, motivo)\\ 
+	PK = CK = \{(idUsuario, idPublicacion)\}\\ 
+	FK = \{idUsuario, idPublicacion\}\\ 
+	
+\newline
+Resuelto(\underline{\underline{idCaso}}, fecha, descripcion, \dashuline{numeroPlacaPolicia}\)\\ 
+	PK = CK = \{idCaso\}\\ 
+	FK = \{numeroPlacaPolicia\}\\ 
+	
+\newline
+Categoria(\underline{nombre})\\ 
+	PK = CK = \{nombre\}\\ 
+
+\newline
+Rol(\underline{nombre})\\ 
+	PK = CK = \{nombre\}\\ 
+
+\newline
+Persona(\underline{dni}, fechaNacimiento, nombre, apellido, \dashuline{idDireccion})\\ 
+	PK = FK = \{dni\}\\ 
+	CK = \{idDireccion\}\\ 
+
+\newline
+Telefono(\underline{\underline{dni}}, \underline{numero})\\ 
+	PK = CK = \{dni\}\\ 
+	FK = \{numero\}\\ 
+
+\newline
+Evento(\underline{idEvento}, descripcion, hora, fecha, \dashuline{nombreRol, idCaso, dni})\\ 
+	PK = CK  = \{idEvento\}\\ 
+	FK = \{nombreRol, idCaso, dni\}\\
+
+\newline
+OficialDePolicia(\underline{numeroDePlaca}, fechaIngreso, numeroEscritorio, \dashuline{nombreRango}, \dashuline{nombreDepartamento})\\
+	PK = CK = \{numeroDePlaca\}\\ 
+	FK = \{nombreRango\}\\
+
+\newline
+Servicio(\underline{nombre})\\ 
+	PK = CK = \{nombre\}\\ 
+
+\newline
+Departamento(\underline{nombre}, lineaTelefonica, \dashuline{nombreLocalidad}, \dashuline{nombreSupervisa})\\ 
+	PK = CK = \{nombre\}\\ 
+	FK = \{nombreLocalidad, nombreSupervisa\}\\
+
+\newline
+LineaTelefonica(\underline{\underline{nombreDepartamento}}, \underline{numero})\\ 
+	PK = CK = \{numero\}\\ 
+	FK = \{nombreDepartamento\}\\
+	
+\newline
+Localicad(\underline{nombre})\\ 
+	PK = CK = \{nombre\}\\ 
+
+\newline
+Rango(\underline{nombre})\\ 
+	PK = CK = \{Nombre\}\\ 
+
+\newline
+Declara(\underline{\underline{idTestimonio, idCaso, dni}})\\ 
+	PK = CK = \{Nombre\}\\ 
+	FK = \{idTestimonio, idCaso, dni\}\\
+	
+\newline
+Tiene(\underline{\underline{nombreRol, idCaso, dni}})\\ 
+	PK = CK = FK = \{nombreRol, idCaso, dni\}\\ 
+	
+\newline
+Culpable(\underline{\underline{dni, idCaso}})\\ 
+	PK = CK = FK = \{dni, idCaso\}\\ 
+	
+\section{Diseño Físico}
+
+\subsection{Inserción de datos}
+
+\section{Código}
+
+\section{Conclusion}
+
+\end{document}
