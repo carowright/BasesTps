@@ -19,52 +19,52 @@ FOREIGN KEY (idCaso) REFERENCES CasoCriminal(idCaso)
 
 CREATE TABLE Custodia(
 id integer PRIMARY KEY,
-fecha date not null,
-hora time not null,
-comentario char(128) not null,
+fecha date,
+hora time,
+comentario char(128),
 FOREIGN KEY (idEvidencia) REFERENCES Evidencia(idEvidencia),
 FOREIGN KEY (numeroPlacaPolicia) REFERENCES OficialDePolicia(numeroPlacaPolicia)
 );
 
 CREATE TABLE Direccion(
-id integer primary key,
-numero integer not null,
-calle char(30) not null 
+id integer PRIMARY KEY,
+numero integer,
+calle char(30)
 );
 
 CREATE TABLE CasoCriminal(
-id integer primary key,
-fechaIngreso date not null,
-fecha date not null,
-hora time not null,
-lugar char(15) not null,
-descripcion char(128) not null,
-foreign key (nombreCategoria) references Categoria(nombreCategoria)
+id integer PRIMARY KEY,
+fechaIngreso date,
+fecha date,
+hora time,
+lugar char(15),
+descripcion char(128),
+FOREIGN KEY (nombreCategoria) references Categoria(nombreCategoria)
 );
 
 CREATE TABLE Congelado(
 id integer primary key references CasoCriminal(id),
-fecha date not null,
-comentario char(15) not null
+fecha date,
+comentario char(15)
 );
 
 CREATE TABLE Descartado(
-idCaso integer primary key references CasoCriminal(idCaso),
-fecha date not null,
+id integer primary key references CasoCriminal(id),
+fecha date,
 motivo char(15)
 );
 
 CREATE TABLE Resulto(
-idCaso integer primary key references CasoCriminal(idCaso),
-fecha date not null,
+id integer primary key references CasoCriminal(id),
+fecha date,
 descripcion char(15),
 FOREIGN KEY (numeroPlacaPolicia) REFERENCES OficialDePolicia(numeroPlacaPolicia)
 );
 
 CREATE TABLE Pendiente(
-idCaso integer primary key references CasoCriminal(idCaso),
-fecha date not null,
-comentario char(15)
+pIdCaso integer,
+pFecha date,
+pComentario char(15)
 );
 
 CREATE TABLE Categoria(
@@ -77,22 +77,21 @@ nombre char(15) primary key
 
 CREATE TABLE Persona(
 dni integer primary key,
-fechaNacimiento date not null,
-nombre char(15) not null,
-apellido char(15) not null,
+fechaNacimiento date,
+nombre char(15),
 foreign key (idDireccion) references Direccion(idDireccion)
 );
 
 CREATE TABLE Telefono(
-numero integer primary key,
-foreign key (dni) references Persona(dni)
+dni integer primary key references Persona(dni),
+numero integer
 );
 
 CREATE TABLE Evento(
 id integer primary key,
-descripcion char(128) not null,
-hora time not null,
-fecha date not null,
+descripcion char(128),
+hora time,
+fecha date,
 foreign key (nombreRol) references Rol(nombreRol),
 foreign key (idCaso) references CasoCriminal(idCaso),
 foreign key (dni) references Persona(dni)
@@ -100,7 +99,7 @@ foreign key (dni) references Persona(dni)
 
 CREATE TABLE OficialDePolicia(
 numeroDePlaca integer primary key,
-fechaDeIngreso date not null,
+fechaDeIngreso date,
 foreign key (nombreDeRango) references Rango(nombreRango),
 foreign key (nombreDeDepartamento) references Departamento(nombreDepartamento),
 numeroDeEscritorio integer
@@ -119,7 +118,7 @@ foreign key (nombreSupervisa) references Departamento(nombreSupervisa)
 
 CREATE TABLE LineaTelefonica(
 numero int primary key,
-nombreDepartamento char(15) primary key references Departamento(nombreDepartamento)
+foreign key (nombreDepartamento) references Departamento(nombreDepartamento)
 );
 
 CREATE TABLE Localidad(

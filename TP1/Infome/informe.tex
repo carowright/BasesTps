@@ -134,8 +134,8 @@ Departamento(\underline{nombre}, lineaTelefonica, \dashuline{nombreLocalidad}, \
 	PK = CK = \{nombre\}\\ 
 	FK = \{nombreLocalidad, nombreSupervisa\}\\
 \newline
-LineaTelefonica(\underline{\underline{nombreDepartamento}}, \underline{numero})\\ 
-	PK = CK = \{numero\}\\ 
+LineaTelefonica(\underline{numero}, \underline{\underline{nombreDepartamento}})\\ 
+	PK = CK = \{numero, nombreDepartamento\}\\ 
 	FK = \{nombreDepartamento\}\\
 \newline
 Localicad(\underline{nombre})\\ 
