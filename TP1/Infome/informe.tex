@@ -86,25 +86,23 @@ CasoCriminal(\underline{id}, fechaIngreso, fecha, hora, lugar, descripcion, \das
 	PK = CK = \{id\}\\ 
 	FK = \{nombreCategoria\}\\ 
 \newline
-Congelado(\underline{\underline{idCaso}}, fecha, comentario)\\ 
+Congelado(\dashuline{idCaso}, fecha, comentario)\\ 
+	PK = CK = FK = \{idCaso\}\\ 
+\newline
+\textit{Congelado.idCaso} tiene que estar en \textit{CasoCriminal.id}
+\newline
+\newline
+Descartado(\dashuline{idCaso}, fecha, motivo)\\ 
+	PK = CK = FK = \{(idCaso)\}\\ 
+\newline
+\textit{Descartado.idCaso} tiene que estar en \textit{CasoCriminal.id}
+\newline
+\newline
+Resuelto(\dashuline{idCaso}, fecha, descripcion, \dashuline{numeroPlacaPolicia})\\ 
 	PK = CK = \{idCaso\}\\ 
-	FK = \{idUsuario, idPublicacion\}\\ 
+	FK = \{idCaso, numeroPlacaPolicia\}\\ 	
 \newline
-\textit{Congelado.idCaso} tiene que estar en \textit{CasoCriminal.idCaso}
-\newline
-\newline
-Descartado(\underline{\underline{idCaso}}, fecha, motivo)\\ 
-	PK = CK = \{(idUsuario, idPublicacion)\}\\ 
-	FK = \{idUsuario, idPublicacion\}\\ 	
-\newline
-\textit{Descartado.idCaso} tiene que estar en \textit{CasoCriminal.idCaso}
-\newline
-\newline
-Resuelto(\underline{\underline{idCaso}}, fecha, descripcion, \dashuline{numeroPlacaPolicia})\\ 
-	PK = CK = \{idCaso\}\\ 
-	FK = \{numeroPlacaPolicia\}\\ 	
-\newline
-\textit{Resuelto.idCaso} tiene que estar en \textit{CasoCriminal.idCaso}
+\textit{Resuelto.idCaso} tiene que estar en \textit{CasoCriminal.id}
 \newline
 \newline
 Categoria(\underline{nombre})\\ 
@@ -114,12 +112,12 @@ Rol(\underline{nombre})\\
 	PK = CK = \{nombre\}\\ 
 \newline
 Persona(\underline{dni}, fechaNacimiento, nombre, apellido, \dashuline{idDireccion})\\ 
-	PK = FK = \{dni\}\\ 
-	CK = \{idDireccion\}\\ 
+	PK = CK = \{dni\}\\ 
+	FK = \{idDireccion\}\\ 
 \newline
 Telefono(\underline{\underline{dni}}, \underline{numero})\\ 
-	PK = CK = \{dni\}\\ 
-	FK = \{numero\}\\ 
+	PK = CK = \{numero\}\\
+	FK = \{dni\}\\ 
 \newline
 Evento(\underline{idEvento}, descripcion, hora, fecha, \dashuline{nombreRol, idCaso, dni})\\ 
 	PK = CK  = \{idEvento\}\\ 
@@ -127,7 +125,7 @@ Evento(\underline{idEvento}, descripcion, hora, fecha, \dashuline{nombreRol, idC
 \newline
 OficialDePolicia(\underline{numeroDePlaca}, fechaIngreso, numeroEscritorio, \dashuline{nombreRango}, \dashuline{nombreDepartamento})\\
 	PK = CK = \{numeroDePlaca\}\\ 
-	FK = \{nombreRango\}\\
+	FK = \{nombreRango, nombreDepartamento\}\\
 \newline
 Servicio(\underline{nombre})\\ 
 	PK = CK = \{nombre\}\\ 
@@ -147,8 +145,7 @@ Rango(\underline{nombre})\\
 	PK = CK = \{Nombre\}\\ 
 \newline
 Declara(\underline{\underline{idTestimonio, idCaso, dni}})\\ 
-	PK = CK = \{Nombre\}\\ 
-	FK = \{idTestimonio, idCaso, dni\}\\
+	PK = CK = FK = \{idTestimonio, idCaso, dni\}\\
 \newline
 Tiene(\underline{\underline{nombreRol, idCaso, dni}})\\ 
 	PK = CK = FK = \{nombreRol, idCaso, dni\}\\ 
