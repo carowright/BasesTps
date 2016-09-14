@@ -65,111 +65,97 @@
 
 \subsection{Modelo Relacional}
 En esta sección presentamos el diseño lógico, obtenido a partir del Modelo de Entidad Relación. 
-
-Testimonio(\underline{idTestimonio}, texto, hora, fecha, \dashuline{numeroPlacaPolicia\})
-	PK = \{idTestimonio\}\\ 
-	CK = \{idTestimonio\}\\ 
+\newline
+\newline
+Testimonio(\underline{id}, texto, hora, fecha, \dashuline{numeroPlacaPolicia})\\
+	PK = CK = \{id\}\\ 
 	FK = \{numeroPlacaPolicia\}\\ 
-
 \newline
-Evidencia(\underline{idEvidencia}, fechaIngreso, descripcion, fechaEncuentro, horaEncuentro, fechaSellado, horaSellado, \dashuline{idCaso})\\ 
-	PK = \{idEvidencia\} \\
-	CK = \{idEvidencia\}\\ 
+Evidencia(\underline{id}, fechaIngreso, descripcion, fechaEncuentro, horaEncuentro, fechaSellado, horaSellado, \dashuline{idCaso})\\ 
+	PK = CK = \{id\} \\
 	FK = \{idCaso\}\\ 
-
 \newline
-Custodia(\underline{idCustodia}, fecha, hora, comentario, \dashuline{idEvidencia}, \dashuline{numeroPlacaPolicia})\\ 
-	PK = \{idCustodia\} \\
-	CK = \{idCustodia\}\\ 
+Custodia(\underline{id}, fecha, hora, comentario, \dashuline{idEvidencia}, \dashuline{numeroPlacaPolicia})\\ 
+	PK = CK = \{id\} \\
 	FK = \{idEvidencia, numeroPlacaPolicia\}\\ 
-
 \newline
-Direccion(\underline{idDireccion}, numero, calle)\\ 
-	PK = CK = \{idDireccion\}\\ 
-
+Direccion(\underline{id}, numero, calle)\\ 
+	PK = CK = \{id\}\\ 
 \newline
-CasoCriminal(\underline{idCaso}, fechaIngreso, fecha, hora, lugar, descripcion, \dashuline{nombreCategoria})\\ 
-	PK = CK = \{idCaso\}\\ 
+CasoCriminal(\underline{id}, fechaIngreso, fecha, hora, lugar, descripcion, \dashuline{nombreCategoria})\\ 
+	PK = CK = \{id\}\\ 
 	FK = \{nombreCategoria\}\\ 
-	
 \newline
 Congelado(\underline{\underline{idCaso}}, fecha, comentario)\\ 
 	PK = CK = \{idCaso\}\\ 
 	FK = \{idUsuario, idPublicacion\}\\ 
-
+\newline
+\textit{Congelado.idCaso} tiene que estar en \textit{CasoCriminal.idCaso}
+\newline
 \newline
 Descartado(\underline{\underline{idCaso}}, fecha, motivo)\\ 
 	PK = CK = \{(idUsuario, idPublicacion)\}\\ 
-	FK = \{idUsuario, idPublicacion\}\\ 
-	
+	FK = \{idUsuario, idPublicacion\}\\ 	
 \newline
-Resuelto(\underline{\underline{idCaso}}, fecha, descripcion, \dashuline{numeroPlacaPolicia}\)\\ 
+\textit{Descartado.idCaso} tiene que estar en \textit{CasoCriminal.idCaso}
+\newline
+\newline
+Resuelto(\underline{\underline{idCaso}}, fecha, descripcion, \dashuline{numeroPlacaPolicia})\\ 
 	PK = CK = \{idCaso\}\\ 
-	FK = \{numeroPlacaPolicia\}\\ 
-	
+	FK = \{numeroPlacaPolicia\}\\ 	
+\newline
+\textit{Resuelto.idCaso} tiene que estar en \textit{CasoCriminal.idCaso}
+\newline
 \newline
 Categoria(\underline{nombre})\\ 
 	PK = CK = \{nombre\}\\ 
-
 \newline
 Rol(\underline{nombre})\\ 
 	PK = CK = \{nombre\}\\ 
-
 \newline
 Persona(\underline{dni}, fechaNacimiento, nombre, apellido, \dashuline{idDireccion})\\ 
 	PK = FK = \{dni\}\\ 
 	CK = \{idDireccion\}\\ 
-
 \newline
 Telefono(\underline{\underline{dni}}, \underline{numero})\\ 
 	PK = CK = \{dni\}\\ 
 	FK = \{numero\}\\ 
-
 \newline
 Evento(\underline{idEvento}, descripcion, hora, fecha, \dashuline{nombreRol, idCaso, dni})\\ 
 	PK = CK  = \{idEvento\}\\ 
 	FK = \{nombreRol, idCaso, dni\}\\
-
 \newline
 OficialDePolicia(\underline{numeroDePlaca}, fechaIngreso, numeroEscritorio, \dashuline{nombreRango}, \dashuline{nombreDepartamento})\\
 	PK = CK = \{numeroDePlaca\}\\ 
 	FK = \{nombreRango\}\\
-
 \newline
 Servicio(\underline{nombre})\\ 
 	PK = CK = \{nombre\}\\ 
-
 \newline
 Departamento(\underline{nombre}, lineaTelefonica, \dashuline{nombreLocalidad}, \dashuline{nombreSupervisa})\\ 
 	PK = CK = \{nombre\}\\ 
 	FK = \{nombreLocalidad, nombreSupervisa\}\\
-
 \newline
 LineaTelefonica(\underline{\underline{nombreDepartamento}}, \underline{numero})\\ 
 	PK = CK = \{numero\}\\ 
 	FK = \{nombreDepartamento\}\\
-	
 \newline
 Localicad(\underline{nombre})\\ 
 	PK = CK = \{nombre\}\\ 
-
 \newline
 Rango(\underline{nombre})\\ 
 	PK = CK = \{Nombre\}\\ 
-
 \newline
 Declara(\underline{\underline{idTestimonio, idCaso, dni}})\\ 
 	PK = CK = \{Nombre\}\\ 
 	FK = \{idTestimonio, idCaso, dni\}\\
-	
 \newline
 Tiene(\underline{\underline{nombreRol, idCaso, dni}})\\ 
 	PK = CK = FK = \{nombreRol, idCaso, dni\}\\ 
-	
 \newline
 Culpable(\underline{\underline{dni, idCaso}})\\ 
 	PK = CK = FK = \{dni, idCaso\}\\ 
-	
+
 \section{Diseño Físico}
 
 \subsection{Inserción de datos}
