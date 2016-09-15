@@ -1,24 +1,21 @@
-#####################################################
-## NO TESTAN TODAS LAS TABLAS; SOLO LAS QUE POPULÉ ##
-#####################################################
-
-
-drop table Telefonos;
-drop table Lineas_Telefonicas;
-drop table Testimonios;
-drop table Oficiales_De_Policia;
-drop table Departamentos;
-drop table Localidades;
-drop table Rangos;
-drop table Eventos;
-drop table Evidencias;
-drop table Caso_Criminal_Personas;
-drop table Roles;
-drop table Servicios;
-drop table Casos_Criminales;
-drop table Personas;
-drop table Direcciones;
-drop table Categorias;
+DROP TABLE IF EXISTS `Investiga`;
+DROP TABLE IF EXISTS `Custodias`;
+DROP TABLE IF EXISTS `Telefonos`;
+DROP TABLE IF EXISTS `Lineas_Telefonicas`;
+DROP TABLE IF EXISTS `Testimonios`;
+DROP TABLE IF EXISTS `Oficiales_De_Policia`;
+DROP TABLE IF EXISTS `Departamentos`;
+DROP TABLE IF EXISTS `Localidades`;
+DROP TABLE IF EXISTS `Rangos`;
+DROP TABLE IF EXISTS `Eventos`;
+DROP TABLE IF EXISTS `Evidencias`;
+DROP TABLE IF EXISTS `Caso_Criminal_Personas`;
+DROP TABLE IF EXISTS `Roles`;
+DROP TABLE IF EXISTS `Servicios`;
+DROP TABLE IF EXISTS `Casos_Criminales`;
+DROP TABLE IF EXISTS `Personas`;
+DROP TABLE IF EXISTS `Direcciones`;
+DROP TABLE IF EXISTS `Categorias`;
 
 
 
@@ -49,7 +46,7 @@ CREATE TABLE Localidades(
 );
 
 CREATE TABLE Departamentos(
-  nombre varchar(50) primary key,
+  nombre varchar(30) primary key,
   nombre_localidad varchar(30) not null,
   supervisado_por_departamento varchar(30),
   foreign key (nombre_localidad) references Localidades(nombre),
@@ -91,8 +88,6 @@ CREATE TABLE Categorias(
 CREATE TABLE Roles(
   nombre varchar(30) primary key
 );
-
-
 
 CREATE TABLE Casos_Criminales(
   id integer primary key,
@@ -146,4 +141,22 @@ CREATE TABLE Testimonios(
   nro_placa_policia_a_cargo integer not null,
   FOREIGN KEY (caso_id, persona_dni) REFERENCES Caso_Criminal_Personas (caso_id, persona_dni),
   FOREIGN KEY (nro_placa_policia_a_cargo) REFERENCES Oficiales_De_Policia(numero_de_placa)
+);
+
+CREATE TABLE Custodias(
+  id integer PRIMARY KEY,
+  fecha datetime not null,
+  comentario varchar(255) not null,
+  evidencia_id integer not null,
+  nro_placa_policia_a_cargo integer not null,
+  FOREIGN KEY (evidencia_id) REFERENCES Evidencias(id),
+  FOREIGN KEY (nro_placa_policia_a_cargo) REFERENCES Oficiales_De_Policia(numero_de_placa)
+);
+
+CREATE TABLE Investiga(
+  caso_id integer not null,
+  nro_placa_policia integer not null,
+  es_investigador_principal boolean not null,
+  FOREIGN KEY (caso_id) REFERENCES Casos_Criminales(id),
+  FOREIGN KEY (nro_placa_policia) REFERENCES Oficiales_De_Policia(numero_de_placa)
 );
