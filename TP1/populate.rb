@@ -16,9 +16,9 @@ end
 
 ActiveRecord::Base.establish_connection(
   :adapter  => "mysql",
-  :host     => "locahost",
-  :username => "XXXXXXX",
-  :password => "XXXXXXX",
+  :host     => "naix.verisur",
+  :username => "adminLTE",
+  :password => "adminLTE_pass",
   :database => "bases"
 )
 
@@ -31,11 +31,19 @@ end
 
 
 RANGOS      = ['Teniente', 'Sargento', 'General', 'Sheriff', 'Cabo', 'Raso', 'Comisario', 'Detective']
-SERVICIOS   = ['Tráfico', 'Parque', 'Bombero', 'Forense', 'Asuntos Internos', 'Informatica', 'Recolector', 'Banco', 'Frontera', 'Guardia', 'Administrativo', 'Seguridad', 'SIDE']
-LOCALIDADES = ['Abasto', 'Barracas', 'Belgrano', 'Boedo', 'Caballito', 'Centro', 'La Boca', 'Microcentro', 'Monserrat', 'Nueva', 'Pompeya', 'Palermo', 'Puerto', 'Madero', 'Recoleta', 'Retiro', 'San Nicolas', 'San Telmo', 'Agronomía', 'Almagro', 'Balvanera', 'Barrio Norte', 'Chacarita', 'Coghlan', 'Colegiales', 'Constitucion', 'Flores', 'Floresta', 'Liniers', 'Mataderos', 'Monte Castro', 'Nuñez', 'Parque Avellaneda', 'Parque Chacabuco', 'Parque Patricios', 'Paternal', 'Saavedra', 'San Cristobal', 'Velez Sarsfield', 'Versalles', 'Villa Crespo', 'Villa Devoto', 'Villa General Mitre', 'Villa Lugano', 'Villa Luro', 'Villa Ortuzar', 'Villa Pueyrredon', 'Villa Real', 'Villa Riachuelo', 'Villa Santa Rita', 'Villa Soldati', 'Villa Urquiza', 'Villa del Parque']
-CATEGORIAS  = ['Secuestro', 'Homicidio', 'Robo arma blanca', 'Robo mano armada', 'Suicidio', 'Choque', 'Violación', 'Evasión Impositiva', 'Atropellamiento', 'Desacato']
+SERVICIOS   = ['TrÃ¡fico', 'Parque', 'Bombero', 'Forense', 'Asuntos Internos', 'Informatica', 'Recolector', 'Banco', 'Frontera', 'Guardia', 'Administrativo', 'Seguridad', 'SIDE']
+LOCALIDADES = ['Abasto', 'Barracas', 'Belgrano', 'Boedo', 'Caballito', 'Centro', 'La Boca', 'Microcentro', 'Monserrat', 'Nueva', 'Pompeya', 'Palermo', 'Puerto', 'Madero', 'Recoleta', 'Retiro', 'San Nicolas', 'San Telmo', 'AgronomÃ­a', 'Almagro', 'Balvanera', 'Barrio Norte', 'Chacarita', 'Coghlan', 'Colegiales', 'Constitucion', 'Flores', 'Floresta', 'Liniers', 'Mataderos', 'Monte Castro', 'NuÃ±ez', 'Parque Avellaneda', 'Parque Chacabuco', 'Parque Patricios', 'Paternal', 'Saavedra', 'San Cristobal', 'Velez Sarsfield', 'Versalles', 'Villa Crespo', 'Villa Devoto', 'Villa General Mitre', 'Villa Lugano', 'Villa Luro', 'Villa Ortuzar', 'Villa Pueyrredon', 'Villa Real', 'Villa Riachuelo', 'Villa Santa Rita', 'Villa Soldati', 'Villa Urquiza', 'Villa del Parque']
+CATEGORIAS  = ['Secuestro', 'Homicidio', 'Robo arma blanca', 'Robo mano armada', 'Suicidio', 'Choque', 'ViolaciÃ³n', 'EvasiÃ³n Impositiva', 'Atropellamiento', 'Desacato']
 ROLES       = ['Victima', 'Testigo', 'Sospechoso']
-EVIDENCIAS  = ["Nombre: #{Faker::Beer.name}", "Stilo: #{Faker::Beer.style}", "Hop: #{Faker::Beer.hop}", "Origen: #{Faker::Beer.yeast}", "Malta: #{Faker::Beer.malts}", "Ibu: #{Faker::Beer.ibu}", "\% de Alcohol: #{Faker::Beer.alcohol}", "Blg: #{Faker::Beer.blg}"]
+
+def gen_evidencias
+  [
+   "Nombre: #{Faker::Beer.name}", "Stilo: #{Faker::Beer.style}", "Hop: #{Faker::Beer.hop}", 
+   "Origen: #{Faker::Beer.yeast}", "Malta: #{Faker::Beer.malts}", "Ibu: #{Faker::Beer.ibu}", 
+   "\% de Alcohol: #{Faker::Beer.alcohol}", "Blg: #{Faker::Beer.blg}"
+  ]
+end
+
 
 [
   :Telefono, :LineasTelefonica, :Testimonio, :OficialesDePolicia, :Investiga,
@@ -194,7 +202,7 @@ def populate_evidencias
 
     _placas_policias_involucrados = get_placas_involucradas(cc)
 
-    _evidencias = EVIDENCIAS.sample(rand(8))
+    _evidencias = gen_evidencias.sample(rand(8))
 
     Evidencia.populate _evidencias.length do |evi|
       evi.caso_id         = cc.id
@@ -238,6 +246,7 @@ case ARGV[0]
   else
     puts "Wrong argument"
 end
+
 
 
 
