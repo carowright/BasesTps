@@ -10,7 +10,9 @@ ActiveSupport::Inflector.inflections do |inflect|
   inflect.irregular 'Rol'       , 'Roles'
   inflect.irregular 'Evidencia' , 'Evidencias'
   inflect.irregular 'Custodia'  , 'Custodias'
-  inflect.irregular 'Investiga' , 'Investiga'
+  inflect.irregular 'Participa' , 'Participa'
+  inflect.irregular 'Investiga' , 'Investiga' 
+  inflect.irregular 'Culpable'  , 'Culpable'
 end
 
 
@@ -47,8 +49,9 @@ end
 
 [
   :Telefono, :LineasTelefonica, :Testimonio, :OficialesDePolicia, :Investiga,
-  :Departamento, :Localidad, :Rango, :Evento, :Evidencia, :CasoCriminalPersona, 
-  :Rol, :Servicio, :CasosCriminal, :Persona, :Direccion, :Categoria, :Custodia
+  :Departamento, :Localidad, :Rango, :Evento, :Evidencia, :Participa, 
+  :Rol, :Servicio, :CasosCriminal, :Persona, :Direccion, :Categoria, :Custodia,
+  :Pendiente, :Congelado, :Resuelto, :Descartado, :Culpable
 ].each do |class_name|
   Object.const_set(class_name, Class.new(ActiveRecord::Base))
 end
@@ -143,12 +146,48 @@ def populate_casos
     cc.descripcion = Faker::Lorem.sentence
     cc.fecha_ingreso = Faker::Date.between(cc.fecha, Date.today)
     cc.nombre_categoria = CATEGORIAS
+    cc.estado = "TEMP"
   end
 
 
   CasosCriminal.all.each do |cc|
-    _dnis.sample(rand(7)+1).each do |dni|
-      CasoCriminalPersona.create(
+    _policias_no_involucrados = _placas-get_placas_involucradas(cc)
+
+    case rand(4)
+      when 0
+        Congelado.create(
+          caso_id: cc.id,
+          fecha: Faker::Date.between(cc.fecha_ingreso, Date.today),
+          comentario: Faker::ChuckNorris.fact
+        )
+        cc.update_attributes(estado: "Congelado")
+      when 1
+        Pendiente.create(
+          caso_id: cc.id
+        )
+        cc.update_attributes(estado: "Pendiente")
+      when 2
+        Resuelto.create(
+          caso_id: cc.id,
+          fecha: Faker::Date.between(cc.fecha_ingreso, Date.today),
+          descripcion: Faker::ChuckNorris.fact,
+          nro_placa_policia_cerro: _policias_no_involucrados.sample
+        )
+        cc.update_attributes(estado: "Resuelto")
+      when 3
+        Descartado.create(
+          caso_id: cc.id,
+          fecha: Faker::Date.between(cc.fecha_ingreso, Date.today),
+          motivo: Faker::ChuckNorris.fact
+        )
+        cc.update_attributes(estado: "Descartado")
+    end
+
+
+    _involucrados = _dnis.sample(rand(7)+1)
+
+    _involucrados.each_with_index do |dni, index|
+      Participa.create(
         caso_id: cc.id,
         persona_dni: dni,
         nombre_rol: ROLES.sample
@@ -169,8 +208,17 @@ def populate_casos
           t.nro_placa_policia_a_cargo = _placas
         end
       end
+
+      if cc.estado == "Resuelto" && (rand(3)==0 || _involucrados.length == index+1)
+        Culpable.create(
+          persona_dni: dni, 
+          caso_id: cc.id
+        )
+      end
+
+
     end
-    _investigadores = (_placas-get_placas_involucradas(cc)).sample(rand(5)+1)
+    _investigadores = _policias_no_involucrados.sample(rand(5)+1)
     _principal = false
 
     _investigadores.each_with_index do |placa, index|
@@ -185,6 +233,8 @@ def populate_casos
       _principal |= _sera_principal
     end
 
+
+
   end
 end
 
@@ -192,7 +242,7 @@ end
 
 
 def get_placas_involucradas(cc)
-  ActiveRecord::Base.connection.execute("select op.numero_de_placa from personas p inner join oficiales_de_policia op inner join caso_criminal_personas ccp on p.dni=op.persona_dni and ccp.persona_dni=p.dni and ccp.caso_id=#{cc.id}").map {|_p| _p['numero_de_placa']}
+  ActiveRecord::Base.connection.execute("select op.numero_de_placa from personas p inner join oficiales_de_policia op inner join participa ccp on p.dni=op.persona_dni and ccp.persona_dni=p.dni and ccp.caso_id=#{cc.id}").map {|_p| _p['numero_de_placa']}
 end
 
 def populate_evidencias

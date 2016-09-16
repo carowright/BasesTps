@@ -1,3 +1,8 @@
+DROP TABLE IF EXISTS `Culpable`;
+DROP TABLE IF EXISTS `Congelados`;
+DROP TABLE IF EXISTS `Pendientes`;
+DROP TABLE IF EXISTS `Resueltos`;
+DROP TABLE IF EXISTS `Descartados`;
 DROP TABLE IF EXISTS `Investiga`;
 DROP TABLE IF EXISTS `Custodias`;
 DROP TABLE IF EXISTS `Telefonos`;
@@ -9,7 +14,7 @@ DROP TABLE IF EXISTS `Localidades`;
 DROP TABLE IF EXISTS `Rangos`;
 DROP TABLE IF EXISTS `Eventos`;
 DROP TABLE IF EXISTS `Evidencias`;
-DROP TABLE IF EXISTS `Caso_Criminal_Personas`;
+DROP TABLE IF EXISTS `Participa`;
 DROP TABLE IF EXISTS `Roles`;
 DROP TABLE IF EXISTS `Servicios`;
 DROP TABLE IF EXISTS `Casos_Criminales`;
@@ -80,7 +85,6 @@ CREATE TABLE Oficiales_De_Policia(
   foreign key (nombre_departamento) references Departamentos(nombre)
 );
 
-
 CREATE TABLE Categorias(
   nombre varchar(30) primary key
 );
@@ -96,11 +100,11 @@ CREATE TABLE Casos_Criminales(
   lugar varchar(30) not null,
   descripcion varchar(255) not null,
   nombre_categoria varchar(30) not null,
+  estado varchar(30) not null,
   foreign key (nombre_categoria) references Categorias(nombre)
 );
 
-
-CREATE TABLE Caso_Criminal_Personas(
+CREATE TABLE Participa(
   caso_id integer,
   persona_dni integer,
   nombre_rol varchar(30) not null,
@@ -118,9 +122,8 @@ CREATE TABLE Eventos(
   descripcion varchar(255) not null,
   fecha datetime not null,
 
-  FOREIGN KEY (caso_id, persona_dni) REFERENCES Caso_Criminal_Personas (caso_id, persona_dni)
+  FOREIGN KEY (caso_id, persona_dni) REFERENCES Participa (caso_id, persona_dni)
 );
-
 
 CREATE TABLE Evidencias(
   id integer PRIMARY KEY,
@@ -139,7 +142,7 @@ CREATE TABLE Testimonios(
   texto varchar(255) not null,
   fecha datetime not null,
   nro_placa_policia_a_cargo integer not null,
-  FOREIGN KEY (caso_id, persona_dni) REFERENCES Caso_Criminal_Personas (caso_id, persona_dni),
+  FOREIGN KEY (caso_id, persona_dni) REFERENCES Participa (caso_id, persona_dni),
   FOREIGN KEY (nro_placa_policia_a_cargo) REFERENCES Oficiales_De_Policia(numero_de_placa)
 );
 
@@ -151,6 +154,43 @@ CREATE TABLE Custodias(
   nro_placa_policia_a_cargo integer not null,
   FOREIGN KEY (evidencia_id) REFERENCES Evidencias(id),
   FOREIGN KEY (nro_placa_policia_a_cargo) REFERENCES Oficiales_De_Policia(numero_de_placa)
+);
+
+CREATE TABLE Congelados(
+  caso_id integer primary key,
+  fecha date not null,
+  comentario varchar(255) not null,
+  FOREIGN KEY (caso_id) references Casos_Criminales(id)
+);
+
+CREATE TABLE Descartados(
+  caso_id integer primary key,
+  fecha date not null,
+  motivo varchar(255) not null,
+  FOREIGN KEY (caso_id) references Casos_Criminales(id)
+);
+
+CREATE TABLE Resueltos(
+  caso_id integer primary key,
+  fecha date not null,
+  descripcion varchar(255) not null,
+  nro_placa_policia_cerro integer not null,
+  FOREIGN KEY (caso_id) references Casos_Criminales(id),
+  FOREIGN KEY (nro_placa_policia_cerro) REFERENCES Oficiales_De_Policia(numero_de_placa)
+);
+
+CREATE TABLE Pendientes(
+  caso_id integer primary key,
+  FOREIGN KEY (caso_id) references Casos_Criminales(id)
+);
+
+CREATE TABLE Culpable(
+  caso_id integer,
+  persona_dni integer,
+
+  PRIMARY KEY (caso_id, persona_dni),
+  foreign key (caso_id)     references Resueltos(caso_id),
+  foreign key (persona_dni) references Personas(dni)
 );
 
 CREATE TABLE Investiga(
