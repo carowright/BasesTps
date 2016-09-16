@@ -69,15 +69,15 @@ La utilización del modelo relacional nos permitirá  administrar esta informaci
 En esta sección presentamos el diseño lógico, obtenido a partir del Modelo de Entidad Relación. 
 \newline
 \newline
-Testimonio(\underline{id}, texto, hora, fecha, \dashuline{numeroPlacaPolicia})\\
+Testimonio(\underline{id}, texto, FechaHora, \dashuline{idCaso}, \dashuline{dni}, \dashuline{numeroPlacaPolicia})\\
 	PK = CK = \{id\}\\ 
-	FK = \{numeroPlacaPolicia\}\\ 
+	FK = \{numeroPlacaPolicia, idCaso, dni\}\\ 
 \newline
-Evidencia(\underline{id}, fechaIngreso, descripcion, fechaEncuentro, horaEncuentro, fechaSellado, horaSellado, \dashuline{idCaso})\\ 
+Evidencia(\underline{id}, fechaIngreso, descripcion, fechaHoraEncuentro, fechaHoraSellado, \dashuline{idCaso})\\ 
 	PK = CK = \{id\} \\
 	FK = \{idCaso\}\\ 
 \newline
-Custodia(\underline{id}, fecha, hora, comentario, \dashuline{idEvidencia}, \dashuline{numeroPlacaPolicia})\\ 
+Custodia(\underline{id}, fechaHora, comentario, \dashuline{idEvidencia}, \dashuline{numeroPlacaPolicia})\\ 
 	PK = CK = \{id\} \\
 	FK = \{idEvidencia, numeroPlacaPolicia\}\\ 
 \newline
@@ -121,7 +121,7 @@ Telefono(\underline{\underline{dni}}, \underline{numero})\\
 	PK = CK = \{numero\}\\
 	FK = \{dni\}\\ 
 \newline
-Evento(\underline{idEvento}, descripcion, hora, fecha, \dashuline{nombreRol, idCaso, dni})\\ 
+Evento(\underline{idEvento}, descripcion, fechaHora, \dashuline{nombreRol, idCaso, dni})\\ 
 	PK = CK  = \{idEvento\}\\ 
 	FK = \{nombreRol, idCaso, dni\}\\
 \newline
@@ -146,10 +146,7 @@ Localicad(\underline{nombre})\\
 Rango(\underline{nombre})\\ 
 	PK = CK = \{Nombre\}\\ 
 \newline
-Declara(\underline{\underline{idTestimonio, idCaso, dni}})\\ 
-	PK = CK = FK = \{idTestimonio, idCaso, dni\}\\
-\newline
-Tiene(\underline{\underline{nombreRol, idCaso, dni}})\\ 
+Participa(\underline{\underline{nombreRol, idCaso, dni}})\\ 
 	PK = CK = FK = \{nombreRol, idCaso, dni\}\\ 
 \newline
 Culpable(\underline{\underline{dni, idCaso}})\\ 
