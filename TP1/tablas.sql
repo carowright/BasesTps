@@ -150,6 +150,7 @@ CREATE TABLE Custodia(
   id integer PRIMARY KEY,
   fecha datetime not null,
   comentario varchar(255) not null,
+  localizacion varchar(255) not null,
   evidencia_id integer not null,
   nro_placa_policia_a_cargo integer not null,
   FOREIGN KEY (evidencia_id) REFERENCES Evidencia(id),
