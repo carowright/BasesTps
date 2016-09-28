@@ -3,16 +3,30 @@ require 'populator'
 require 'faker'
 
 ActiveSupport::Inflector.inflections do |inflect|
-  inflect.irregular 'Direccion' , 'Direcciones'
-  inflect.irregular 'Localidad' , 'Localidades'
-  inflect.irregular 'Categoria' , 'Categorias'
-  inflect.irregular 'Criminal'  , 'Criminales'
-  inflect.irregular 'Rol'       , 'Roles'
-  inflect.irregular 'Evidencia' , 'Evidencias'
-  inflect.irregular 'Custodia'  , 'Custodias'
-  inflect.irregular 'Participa' , 'Participa'
-  inflect.irregular 'Investiga' , 'Investiga' 
-  inflect.irregular 'Culpable'  , 'Culpable'
+  inflect.irregular 'Culpable' , 'Culpable'
+  inflect.irregular 'Congelado' , 'Congelado'
+  inflect.irregular 'Pendiente' , 'Pendiente'
+  inflect.irregular 'Resuelto'  , 'Resuelto'
+  inflect.irregular 'Descartado'       , 'Descartado'
+  inflect.irregular 'Investiga' , 'Investiga'
+  inflect.irregular 'Custodia'  , 'Custodia'
+  inflect.irregular 'Telefono' , 'Telefono'
+  inflect.irregular 'Linea_Telefonica' , 'Linea_Telefonica' 
+  inflect.irregular 'Testimonio'  , 'Testimonio'
+  inflect.irregular 'Oficial_De_Policia'  , 'Oficial_De_Policia'
+  inflect.irregular 'Departamento'  , 'Departamento'
+  inflect.irregular 'Localidad'  , 'Localidad'
+  inflect.irregular 'Rango'  , 'Rango'
+  inflect.irregular 'Evento'  , 'Evento'
+  inflect.irregular 'Evidencia'  , 'Evidencia'
+  inflect.irregular 'Involucra'  , 'Involucra'
+  inflect.irregular 'Rol'  , 'Rol'
+  inflect.irregular 'Servicio'  , 'Servicio'
+  inflect.irregular 'Caso_Criminal'  , 'Caso_Criminal'
+  inflect.irregular 'Persona'  , 'Persona'
+  inflect.irregular 'Domicilio'  , 'Domicilio'
+  inflect.irregular 'Categoria'  , 'Categoria'
+
 end
 
 
@@ -48,10 +62,10 @@ end
 
 
 [
-  :Telefono, :LineasTelefonica, :Testimonio, :OficialesDePolicia, :Investiga,
-  :Departamento, :Localidad, :Rango, :Evento, :Evidencia, :Participa, 
-  :Rol, :Servicio, :CasosCriminal, :Persona, :Direccion, :Categoria, :Custodia,
-  :Pendiente, :Congelado, :Resuelto, :Descartado, :Culpable
+ :Culpable,:Congelado,:Pendiente,:Resuelto,
+:Descartado,:Investiga,
+:Custodia,:Telefono,:Linea_Telefonica,:Testimonio,:Oficial_De_Policia,:Departamento,:Localidad,:Rango,
+:Evento,:Evidencia,:Involucra,:Rol,:Servicio,:Caso_Criminal,:Persona,:Domicilio,:Categoria
 ].each do |class_name|
   Object.const_set(class_name, Class.new(ActiveRecord::Base))
 end

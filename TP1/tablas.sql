@@ -1,99 +1,99 @@
 DROP TABLE IF EXISTS `Culpable`;
-DROP TABLE IF EXISTS `Congelados`;
-DROP TABLE IF EXISTS `Pendientes`;
-DROP TABLE IF EXISTS `Resueltos`;
-DROP TABLE IF EXISTS `Descartados`;
+DROP TABLE IF EXISTS `Congelado`;
+DROP TABLE IF EXISTS `Pendiente`;
+DROP TABLE IF EXISTS `Resuelto`;
+DROP TABLE IF EXISTS `Descartado`;
 DROP TABLE IF EXISTS `Investiga`;
-DROP TABLE IF EXISTS `Custodias`;
-DROP TABLE IF EXISTS `Telefonos`;
-DROP TABLE IF EXISTS `Lineas_Telefonicas`;
-DROP TABLE IF EXISTS `Testimonios`;
-DROP TABLE IF EXISTS `Oficiales_De_Policia`;
-DROP TABLE IF EXISTS `Departamentos`;
-DROP TABLE IF EXISTS `Localidades`;
-DROP TABLE IF EXISTS `Rangos`;
-DROP TABLE IF EXISTS `Eventos`;
-DROP TABLE IF EXISTS `Evidencias`;
-DROP TABLE IF EXISTS `Participa`;
-DROP TABLE IF EXISTS `Roles`;
-DROP TABLE IF EXISTS `Servicios`;
-DROP TABLE IF EXISTS `Casos_Criminales`;
-DROP TABLE IF EXISTS `Personas`;
-DROP TABLE IF EXISTS `Direcciones`;
-DROP TABLE IF EXISTS `Categorias`;
+DROP TABLE IF EXISTS `Custodia`;
+DROP TABLE IF EXISTS `Telefono`;
+DROP TABLE IF EXISTS `Linea_Telefonica`;
+DROP TABLE IF EXISTS `Testimonio`;
+DROP TABLE IF EXISTS `Oficial_De_Policia`;
+DROP TABLE IF EXISTS `Departamento`;
+DROP TABLE IF EXISTS `Localidad`;
+DROP TABLE IF EXISTS `Rango`;
+DROP TABLE IF EXISTS `Evento`;
+DROP TABLE IF EXISTS `Evidencia`;
+DROP TABLE IF EXISTS `Involucra`;
+DROP TABLE IF EXISTS `Rol`;
+DROP TABLE IF EXISTS `Servicio`;
+DROP TABLE IF EXISTS `Caso_Criminal`;
+DROP TABLE IF EXISTS `Persona`;
+DROP TABLE IF EXISTS `Domicilio`;
+DROP TABLE IF EXISTS `Categoria`;
 
 
 
-CREATE TABLE Direcciones(
+CREATE TABLE Domicilio(
   id integer primary key,
   numero integer not null,
   calle varchar(30) not null 
 );
 
-CREATE TABLE Personas(
+CREATE TABLE Persona(
   dni integer primary key,
   fecha_nacimiento date not null,
   nombre varchar(30) not null,
   apellido varchar(30) not null,
-  direccion_id integer not null,
-  foreign key (direccion_id) references Direcciones(id)
+  domicilio_id integer not null,
+  foreign key (domicilio_id) references Domicilio(id)
 );
 
-CREATE TABLE Telefonos(
+CREATE TABLE Telefono(
   numero integer primary key,
   persona_dni integer not null,
   tipo varchar(30) not null,
-  foreign key (persona_dni) references Personas(dni)
+  foreign key (persona_dni) references Persona(dni)
 );
 
-CREATE TABLE Localidades(
+CREATE TABLE Localidad(
   nombre varchar(30) primary key
 );
 
-CREATE TABLE Departamentos(
+CREATE TABLE Departamento(
   nombre varchar(30) primary key,
   nombre_localidad varchar(30) not null,
   supervisado_por_departamento varchar(30),
-  foreign key (nombre_localidad) references Localidades(nombre),
-  foreign key (supervisado_por_departamento) references Departamentos(nombre)
+  foreign key (nombre_localidad) references Localidad(nombre),
+  foreign key (supervisado_por_departamento) references Departamento(nombre)
 );
 
-CREATE TABLE Lineas_Telefonicas(
+CREATE TABLE Linea_Telefonica(
   numero int,
   nombre_departamento varchar(30),
   PRIMARY KEY (numero, nombre_departamento),
-  foreign key (nombre_departamento) references Departamentos(nombre)
+  foreign key (nombre_departamento) references Departamento(nombre)
 );
 
-CREATE TABLE Rangos(
+CREATE TABLE Rango(
   nombre varchar(30) primary key
 );
 
-CREATE TABLE Servicios(
+CREATE TABLE Servicio(
   nombre varchar(30) primary key
 );
 
-CREATE TABLE Oficiales_De_Policia(
+CREATE TABLE Oficial_De_Policia(
   persona_dni integer not null,
   numero_de_placa integer primary key,
   fecha_de_ingreso date not null,
   numero_de_escritorio integer not null,
   nombre_rango varchar(30) not null,
   nombre_departamento varchar(30) not null,
-  foreign key (persona_dni) references Personas(dni),
-  foreign key (nombre_rango) references Rangos(nombre),
-  foreign key (nombre_departamento) references Departamentos(nombre)
+  foreign key (persona_dni) references Persona(dni),
+  foreign key (nombre_rango) references Rango(nombre),
+  foreign key (nombre_departamento) references Departamento(nombre)
 );
 
-CREATE TABLE Categorias(
+CREATE TABLE Categoria(
   nombre varchar(30) primary key
 );
 
-CREATE TABLE Roles(
+CREATE TABLE Rol(
   nombre varchar(30) primary key
 );
 
-CREATE TABLE Casos_Criminales(
+CREATE TABLE Caso_Criminal(
   id integer primary key,
   fecha_ingreso date not null,
   fecha datetime not null,
@@ -101,21 +101,21 @@ CREATE TABLE Casos_Criminales(
   descripcion varchar(255) not null,
   nombre_categoria varchar(30) not null,
   estado varchar(30) not null,
-  foreign key (nombre_categoria) references Categorias(nombre)
+  foreign key (nombre_categoria) references Categoria(nombre)
 );
 
-CREATE TABLE Participa(
+CREATE TABLE Involucra(
   caso_id integer,
   persona_dni integer,
   nombre_rol varchar(30) not null,
 
   PRIMARY KEY (caso_id, persona_dni),
-  foreign key (caso_id)     references Casos_Criminales(id),
-  foreign key (persona_dni) references Personas(dni),
-  foreign key (nombre_rol)  references Roles(nombre)
+  foreign key (caso_id)     references Caso_Criminal(id),
+  foreign key (persona_dni) references Persona(dni),
+  foreign key (nombre_rol)  references Rol(nombre)
 );
 
-CREATE TABLE Eventos(
+CREATE TABLE Evento(
   id integer primary key,
   caso_id integer,
   persona_dni integer,
@@ -125,17 +125,17 @@ CREATE TABLE Eventos(
   FOREIGN KEY (caso_id, persona_dni) REFERENCES Participa (caso_id, persona_dni)
 );
 
-CREATE TABLE Evidencias(
+CREATE TABLE Evidencia(
   id integer PRIMARY KEY,
   fecha_ingreso date not null,
   descripcion char(128) not null,
   fecha_encuentro datetime not null,
   fecha_sellado datetime not null,
   caso_id integer not null,
-  FOREIGN KEY (caso_id) REFERENCES Casos_Criminales(id)
+  FOREIGN KEY (caso_id) REFERENCES Caso_Criminal(id)
 );
 
-CREATE TABLE Testimonios(
+CREATE TABLE Testimonio(
   id integer PRIMARY KEY,
   caso_id integer,
   persona_dni integer,
@@ -143,45 +143,45 @@ CREATE TABLE Testimonios(
   fecha datetime not null,
   nro_placa_policia_a_cargo integer not null,
   FOREIGN KEY (caso_id, persona_dni) REFERENCES Participa (caso_id, persona_dni),
-  FOREIGN KEY (nro_placa_policia_a_cargo) REFERENCES Oficiales_De_Policia(numero_de_placa)
+  FOREIGN KEY (nro_placa_policia_a_cargo) REFERENCES Oficial_De_Policia(numero_de_placa)
 );
 
-CREATE TABLE Custodias(
+CREATE TABLE Custodia(
   id integer PRIMARY KEY,
   fecha datetime not null,
   comentario varchar(255) not null,
   evidencia_id integer not null,
   nro_placa_policia_a_cargo integer not null,
-  FOREIGN KEY (evidencia_id) REFERENCES Evidencias(id),
-  FOREIGN KEY (nro_placa_policia_a_cargo) REFERENCES Oficiales_De_Policia(numero_de_placa)
+  FOREIGN KEY (evidencia_id) REFERENCES Evidencia(id),
+  FOREIGN KEY (nro_placa_policia_a_cargo) REFERENCES Oficial_De_Policia(numero_de_placa)
 );
 
-CREATE TABLE Congelados(
+CREATE TABLE Congelado(
   caso_id integer primary key,
   fecha date not null,
   comentario varchar(255) not null,
-  FOREIGN KEY (caso_id) references Casos_Criminales(id)
+  FOREIGN KEY (caso_id) references Caso_Criminal(id)
 );
 
-CREATE TABLE Descartados(
+CREATE TABLE Descartado(
   caso_id integer primary key,
   fecha date not null,
   motivo varchar(255) not null,
-  FOREIGN KEY (caso_id) references Casos_Criminales(id)
+  FOREIGN KEY (caso_id) references Caso_Criminal(id)
 );
 
-CREATE TABLE Resueltos(
+CREATE TABLE Resuelto(
   caso_id integer primary key,
   fecha date not null,
   descripcion varchar(255) not null,
   nro_placa_policia_cerro integer not null,
-  FOREIGN KEY (caso_id) references Casos_Criminales(id),
-  FOREIGN KEY (nro_placa_policia_cerro) REFERENCES Oficiales_De_Policia(numero_de_placa)
+  FOREIGN KEY (caso_id) references Caso_Criminal(id),
+  FOREIGN KEY (nro_placa_policia_cerro) REFERENCES Oficial_De_Policia(numero_de_placa)
 );
 
-CREATE TABLE Pendientes(
+CREATE TABLE Pendiente(
   caso_id integer primary key,
-  FOREIGN KEY (caso_id) references Casos_Criminales(id)
+  FOREIGN KEY (caso_id) references Caso_Criminal(id)
 );
 
 CREATE TABLE Culpable(
@@ -189,14 +189,14 @@ CREATE TABLE Culpable(
   persona_dni integer,
 
   PRIMARY KEY (caso_id, persona_dni),
-  foreign key (caso_id)     references Resueltos(caso_id),
-  foreign key (persona_dni) references Personas(dni)
+  foreign key (caso_id)     references Resuelto(caso_id),
+  foreign key (persona_dni) references Persona(dni)
 );
 
 CREATE TABLE Investiga(
   caso_id integer not null,
   nro_placa_policia integer not null,
   es_investigador_principal boolean not null,
-  FOREIGN KEY (caso_id) REFERENCES Casos_Criminales(id),
-  FOREIGN KEY (nro_placa_policia) REFERENCES Oficiales_De_Policia(numero_de_placa)
+  FOREIGN KEY (caso_id) REFERENCES Caso_Criminal(id),
+  FOREIGN KEY (nro_placa_policia) REFERENCES Oficial_De_Policia(numero_de_placa)
 );
