@@ -27,7 +27,7 @@ DROP TABLE IF EXISTS `Categoria`;
 CREATE TABLE Domicilio(
   id integer primary key,
   numero integer not null,
-  calle varchar(30) not null 
+  calle varchar(30) not null
 );
 
 CREATE TABLE Persona(
@@ -101,7 +101,8 @@ CREATE TABLE Caso_Criminal(
   descripcion varchar(255) not null,
   nombre_categoria varchar(30) not null,
   estado varchar(30) not null,
-  foreign key (nombre_categoria) references Categoria(nombre)
+  foreign key (nombre_categoria) references Categoria(nombre),
+  CHECK (fecha_ingreso > fecha)
 );
 
 CREATE TABLE Involucra(
@@ -132,7 +133,9 @@ CREATE TABLE Evidencia(
   fecha_encuentro datetime not null,
   fecha_sellado datetime not null,
   caso_id integer not null,
-  FOREIGN KEY (caso_id) REFERENCES Caso_Criminal(id)
+  FOREIGN KEY (caso_id) REFERENCES Caso_Criminal(id),
+  CHECK (fecha_ingreso > fecha_encuentro),
+  CHECK (fecha_sellado > fecha_ingreso)
 );
 
 CREATE TABLE Testimonio(
