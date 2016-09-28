@@ -347,7 +347,49 @@ CREATE TABLE Investiga(
 \subsection{Inserción de datos}
 
 \section{Código}
-Implementamos las siguientes funcionalidades.
+\begin{verbatim}
+1---
+select p.* 
+from personas p 
+  inner join participa pa 
+  on p.dni = pa.persona_dni 
+where pa.nombre_rol ="Sospechoso";
+
+2---
+
+3--- //FALTA VER QUE NO SON EL MISMO CASO
+select numero_de_placa, count(caso_id) as casosInvolucrados
+from oficiales_de_policia op inner join 
+custodias c on c.nro_placa_policia_a_cargo = op.numero_de_placa inner join 
+evidencias e on e.id = c.evidencia_id 
+group by op.numero_de_placa HAVING casosInvolucrados > 1;
+
+
+4---
+selecte.fecha,  pa.persona_dni as dni, e.descripcion from eventos e inner join participa pa where pa.persona_dni = e.persona_dni and pa.caso_id = 1 order by e.fecha;
+
+5---
+select numero_de_placa, count(caso_id) as nroCasosResuelto from resueltos inner join oficiales_de_policia on nro_placa_policia_cerro = numero_de_placa group by numero_de_placa order by nroCasosResuelto desc;
+
+6---
+select e.id as evidencia_id, c.localizacion from custodias c inner join evidencias e on e.id = c.evidencia_id where e.caso_id = 1 and c.fecha = (select max(fecha) from custodias c2 where c2.evidencia_id = e.id);
+
+7---
+select op.numero_de_placa, pa.nombre_rol from oficiales_de_policia op inner join personas pe on pe.dni = op.persona_dni inner join participa pa on pa.persona_dni = pe.dni where pa.caso_id = 2;
+
+8---
+select count(co.caso_id) as congelados, count(pe.caso_id) as pendientes, count(re.caso_id) as resueltos, count(de.caso_id) as descartados from casos_criminales 
+left join congelados  co on co.caso_id = id 
+left join pendientes  pe on pe.caso_id = id 
+left join resueltos   re on re.caso_id = id 
+left join descartados de on de.caso_id = id;
+
+9---
+select * from testimonios where t.caso_id = CASO_ID;
+
+10--
+select cc.id as casoID, t.id as testimonioID, t.fecha, t.texto from CATEGORIA ca inner join casos_criminales cc on ca.caso_id = cc.id inner join participa p on cc.id = p.caso_id inner join testimonios t on p.caso_id = t.caso_id and p.persona_dni = t.persona_dni;
+\end{verbatim}
 
 \begin{itemize}
 \item Datos de las personas que fueron sospechosas.
