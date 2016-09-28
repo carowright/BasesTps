@@ -69,52 +69,52 @@ La utilización del modelo relacional nos permitirá  administrar esta informaci
 En esta sección presentamos el diseño lógico, obtenido a partir del Modelo de Entidad Relación. 
 \newline
 \newline
-Testimonio(\underline{id}, texto, FechaHora, \dashuline{idCaso}, \dashuline{dni}, \dashuline{numeroPlacaPolicia})\\
+Testimonio(\underline{id}, texto, fecha, \dashuline{caso\_id}, \dashuline{persona\_dni}, \dashuline{nro\_placa\_policia\_a\_cargo})\\
 	PK = CK = \{id\}\\ 
-	FK = \{numeroPlacaPolicia, idCaso, dni\}\\ 
+	FK = \{nro\_placa\_policia\_a\_cargo, caso\_id, persona\_dni\}\\ 
 \newline
-Evidencia(\underline{id}, fechaIngreso, descripcion, fechaHoraEncuentro, fechaHoraSellado, \dashuline{idCaso})\\ 
+Evidencia(\underline{id}, fecha\_ingreso, descripcion, fecha\_encuentro, fecha\_sellado, \dashuline{caso\_id})\\ 
 	PK = CK = \{id\} \\
-	FK = \{idCaso\}\\ 
+	FK = \{caso\_id\}\\ 
 \newline
-Custodia(\underline{id}, fechaHora, comentario, \dashuline{idEvidencia}, \dashuline{numeroPlacaPolicia})\\ 
+Custodia(\underline{id}, fecha, localizacion ,  comentario, \dashuline{evidencia\_id}, \dashuline{nro\_placa\_policia\_a\_cargo})\\ 
 	PK = CK = \{id\} \\
-	FK = \{idEvidencia, numeroPlacaPolicia\}\\ 
+	FK = \{evidencia\_id, nro\_placa\_policia\_a\_cargo\}\\ 
 \newline
-Direccion(\underline{id}, numero, calle)\\ 
+Domicilio(\underline{id}, numero, calle)\\ 
 	PK = CK = \{id\}\\ 
 \newline
-CasoCriminal(\underline{id}, fechaIngreso, fechaHora, lugar, descripcion, estado, \dashuline{nombreCategoria})\\ 
+Caso\_Criminal(\underline{id}, fecha_ingreso, fecha, lugar, descripcion, estado, \dashuline{nombre\_categoria})\\ 
 	PK = CK = \{id\}\\ 
-	FK = \{nombreCategoria\}\\ 
+	FK = \{nombre\_categoria\}\\ 
 \newline
-Congelado(\dashuline{idCaso}, fecha, comentario)\\ 
-	PK = CK = FK = \{idCaso\}\\ 
+Congelado(\dashuline{caso\_id}, fecha, comentario)\\ 
+	PK = CK = FK = \{caso\_id\}\\ 
 \newline
-\textit{Congelado.idCaso} tiene que estar en \textit{CasoCriminal.id}
+\textit{Congelado.caso\_id} tiene que estar en \textit{Caso\_Criminal.id}
 \newline
 \newline
-Descartado(\dashuline{idCaso}, fecha, motivo)\\ 
+Descartado(\dashuline{caso\_id}, fecha, motivo)\\ 
 	PK = CK = FK = \{(idCaso)\}\\ 
 \newline
-\textit{Descartado.idCaso} tiene que estar en \textit{CasoCriminal.id}
+\textit{Descartado.caso\_id} tiene que estar en \textit{Caso\_Criminal.id}
 \newline
 \newline
-Resuelto(\dashuline{idCaso}, fecha, descripcion, \dashuline{numeroPlacaPolicia})\\ 
-	PK = CK = \{idCaso\}\\ 
-	FK = \{idCaso, numeroPlacaPolicia\}\\ 	
+Resuelto(\dashuline{caso\_id}, fecha, descripcion, \dashuline{nro\_placa\_policia\_cerro})\\ 
+	PK = CK = \{caso\_id\}\\ 
+	FK = \{caso\_id, nro\_placa\_policia\_cerro\}\\ 	
 \newline
-\textit{Resuelto.idCaso} tiene que estar en \textit{CasoCriminal.id}
-\newline
-\newline
-Pendiente(\dashuline{idCaso})\\ 
-  PK = CK = FK = \{idCaso\}\\ 
-\newline
-\textit{Pendiente.idCaso} tiene que estar en \textit{CasoCriminal.id}
+\textit{Resuelto.caso\_id} tiene que estar en \textit{Caso\_Criminal.id}
 \newline
 \newline
-Investiga(\dashuline{idCaso}, \dashuline{numeroPlacaPolicia}, esInvPrincipal?)\\ 
-  PK = CK = FK = \{idCaso, numeroPlacaPolicia\}\\ 
+Pendiente(\dashuline{caso_id})\\ 
+  PK = CK = FK = \{caso\_id\}\\ 
+\newline
+\textit{Pendiente.caso\_id} tiene que estar en \textit{Caso\_Criminal.id}
+\newline
+\newline
+Investiga(\dashuline{caso\_id}, \dashuline{nro\_placa\_policia}, es_investigador\_principal)\\ 
+  PK = CK = FK = \{caso\_id, nro\_placa\_policia\}\\ 
 \newline
 \newline
 Categoria(\underline{nombre})\\ 
@@ -123,32 +123,32 @@ Categoria(\underline{nombre})\\
 Rol(\underline{nombre})\\ 
 	PK = CK = \{nombre\}\\ 
 \newline
-Persona(\underline{dni}, fechaNacimiento, nombre, apellido, \dashuline{idDireccion})\\ 
+Persona(\underline{dni}, fecha\_nacimiento, nombre, apellido, \dashuline{domicilio\_id})\\ 
 	PK = CK = \{dni\}\\ 
-	FK = \{idDireccion\}\\ 
+	FK = \{domicilio\_id\}\\ 
 \newline
-Telefono(\underline{\underline{dni}}, \underline{numero})\\ 
+Telefono(\underline{\underline{persona\_dni}}, \underline{numero}, tipo)\\ 
 	PK = CK = \{numero\}\\
-	FK = \{dni\}\\ 
+	FK = \{persona\_dni\}\\ 
 \newline
-Evento(\underline{idEvento}, descripcion, fechaHora, \dashuline{nombreRol, idCaso, dni})\\ 
-	PK = CK  = \{idEvento\}\\ 
-	FK = \{nombreRol, idCaso, dni\}\\
+Evento(\underline{id}, descripcion, fecha, \dashuline{caso\_id, persona\_dni})\\ 
+	PK = CK  = \{id\}\\ 
+	FK = \{caso\_id, persona\_dni\}\\
 \newline
-OficialDePolicia(\underline{numeroDePlaca}, fechaIngreso, numeroEscritorio, \dashuline{nombreRango}, \dashuline{nombreDepartamento})\\
-	PK = CK = \{numeroDePlaca\}\\ 
-	FK = \{nombreRango, nombreDepartamento\}\\
+Oficial\_De\_Policia(\underline{numero\_de\_placa},persona\_dni, fecha\_de\_ingreso, numero\_de\_escritorio, \dashuline{nombre\_rango}, \dashuline{nombre\_departamento})\\
+	PK = CK = \{numero\_de\_placa\}\\ 
+	FK = \{persona\_dni, nombre\_rango, nombre\_departamento\}\\
 \newline
 Servicio(\underline{nombre})\\ 
 	PK = CK = \{nombre\}\\ 
 \newline
-Departamento(\underline{nombre}, lineaTelefonica, \dashuline{nombreLocalidad}, \dashuline{nombreSupervisa})\\ 
+Departamento(\underline{nombre}, linea\_telefonica, \dashuline{nombre\_localidad}, \dashuline{supervisado\_por\_departamento})\\ 
 	PK = CK = \{nombre\}\\ 
-	FK = \{nombreLocalidad, nombreSupervisa\}\\
+	FK = \{nombre\_localidad, supervisado\_por\_departamento\}\\
 \newline
-LineaTelefonica(\underline{numero}, \underline{\underline{nombreDepartamento}})\\ 
-	PK = CK = \{numero, nombreDepartamento\}\\ 
-	FK = \{nombreDepartamento\}\\
+Linea\_Telefonica(\underline{numero}, \underline{\underline{nombre\_departamento}})\\ 
+	PK = CK = \{numero, nombre\_departamento\}\\ 
+	FK = \{nombre\_departamento\}\\
 \newline
 Localicad(\underline{nombre})\\ 
 	PK = CK = \{nombre\}\\ 
@@ -156,86 +156,85 @@ Localicad(\underline{nombre})\\
 Rango(\underline{nombre})\\ 
 	PK = CK = \{Nombre\}\\ 
 \newline
-Participa(\underline{\underline{nombreRol, idCaso, dni}})\\ 
-	PK = CK = FK = \{nombreRol, idCaso, dni\}\\ 
+Involucra(\underline{\underline{nombre\_rol, caso\_id, persona\_dni}})\\ 
+	PK = CK = FK = \{nombre\_rol, caso\_id, persona\_dni\}\\ 
 \newline
-Culpable(\underline{\underline{dni, idCaso}})\\ 
-	PK = CK = FK = \{dni, idCaso\}\\ 
+Culpable(\underline{\underline{persona\_dni, caso\_id}})\\ 
+	PK = CK = FK = \{persona\_dni, caso\_id\}\\ 
 
 \section{Diseño Físico}
 Creación de las tablas.
 
-\begin{verbatim}
-CREATE TABLE Direcciones(
+\begin{verbatim}CREATE TABLE Domicilio(
   id integer primary key,
   numero integer not null,
   calle varchar(30) not null 
 );
 
-CREATE TABLE Personas(
+CREATE TABLE Persona(
   dni integer primary key,
   fecha_nacimiento date not null,
   nombre varchar(30) not null,
   apellido varchar(30) not null,
-  direccion_id integer not null,
-  foreign key (direccion_id) references Direcciones(id)
+  domicilio_id integer not null,
+  foreign key (domicilio_id) references Domicilio(id)
 );
 
-CREATE TABLE Telefonos(
+CREATE TABLE Telefono(
   numero integer primary key,
   persona_dni integer not null,
   tipo varchar(30) not null,
-  foreign key (persona_dni) references Personas(dni)
+  foreign key (persona_dni) references Persona(dni)
 );
 
-CREATE TABLE Localidades(
+CREATE TABLE Localidad(
   nombre varchar(30) primary key
 );
 
-CREATE TABLE Departamentos(
+CREATE TABLE Departamento(
   nombre varchar(30) primary key,
   nombre_localidad varchar(30) not null,
   supervisado_por_departamento varchar(30),
-  foreign key (nombre_localidad) references Localidades(nombre),
-  foreign key (supervisado_por_departamento) references Departamentos(nombre)
+  foreign key (nombre_localidad) references Localidad(nombre),
+  foreign key (supervisado_por_departamento) references Departamento(nombre)
 );
 
-CREATE TABLE Lineas_Telefonicas(
+CREATE TABLE Linea_Telefonica(
   numero int,
   nombre_departamento varchar(30),
   PRIMARY KEY (numero, nombre_departamento),
-  foreign key (nombre_departamento) references Departamentos(nombre)
+  foreign key (nombre_departamento) references Departamento(nombre)
 );
 
-CREATE TABLE Rangos(
+CREATE TABLE Rango(
   nombre varchar(30) primary key
 );
 
-CREATE TABLE Servicios(
+CREATE TABLE Servicio(
   nombre varchar(30) primary key
 );
 
-CREATE TABLE Oficiales_De_Policia(
+CREATE TABLE Oficial_De_Policia(
   persona_dni integer not null,
   numero_de_placa integer primary key,
   fecha_de_ingreso date not null,
   numero_de_escritorio integer not null,
   nombre_rango varchar(30) not null,
   nombre_departamento varchar(30) not null,
-  foreign key (persona_dni) references Personas(dni),
-  foreign key (nombre_rango) references Rangos(nombre),
-  foreign key (nombre_departamento) references Departamentos(nombre)
+  foreign key (persona_dni) references Persona(dni),
+  foreign key (nombre_rango) references Rango(nombre),
+  foreign key (nombre_departamento) references Departamento(nombre)
 );
 
-CREATE TABLE Categorias(
+CREATE TABLE Categoria(
   nombre varchar(30) primary key
 );
 
-CREATE TABLE Roles(
+CREATE TABLE Rol(
   nombre varchar(30) primary key
 );
 
-CREATE TABLE Casos_Criminales(
+CREATE TABLE Caso_Criminal(
   id integer primary key,
   fecha_ingreso date not null,
   fecha datetime not null,
@@ -243,21 +242,21 @@ CREATE TABLE Casos_Criminales(
   descripcion varchar(255) not null,
   nombre_categoria varchar(30) not null,
   estado varchar(30) not null,
-  foreign key (nombre_categoria) references Categorias(nombre)
+  foreign key (nombre_categoria) references Categoria(nombre)
 );
 
-CREATE TABLE Participa(
+CREATE TABLE Involucra(
   caso_id integer,
   persona_dni integer,
   nombre_rol varchar(30) not null,
 
   PRIMARY KEY (caso_id, persona_dni),
-  foreign key (caso_id)     references Casos_Criminales(id),
-  foreign key (persona_dni) references Personas(dni),
-  foreign key (nombre_rol)  references Roles(nombre)
+  foreign key (caso_id)     references Caso_Criminal(id),
+  foreign key (persona_dni) references Persona(dni),
+  foreign key (nombre_rol)  references Rol(nombre)
 );
 
-CREATE TABLE Eventos(
+CREATE TABLE Evento(
   id integer primary key,
   caso_id integer,
   persona_dni integer,
@@ -267,17 +266,17 @@ CREATE TABLE Eventos(
   FOREIGN KEY (caso_id, persona_dni) REFERENCES Participa (caso_id, persona_dni)
 );
 
-CREATE TABLE Evidencias(
+CREATE TABLE Evidencia(
   id integer PRIMARY KEY,
   fecha_ingreso date not null,
   descripcion char(128) not null,
   fecha_encuentro datetime not null,
   fecha_sellado datetime not null,
   caso_id integer not null,
-  FOREIGN KEY (caso_id) REFERENCES Casos_Criminales(id)
+  FOREIGN KEY (caso_id) REFERENCES Caso_Criminal(id)
 );
 
-CREATE TABLE Testimonios(
+CREATE TABLE Testimonio(
   id integer PRIMARY KEY,
   caso_id integer,
   persona_dni integer,
@@ -285,45 +284,46 @@ CREATE TABLE Testimonios(
   fecha datetime not null,
   nro_placa_policia_a_cargo integer not null,
   FOREIGN KEY (caso_id, persona_dni) REFERENCES Participa (caso_id, persona_dni),
-  FOREIGN KEY (nro_placa_policia_a_cargo) REFERENCES Oficiales_De_Policia(numero_de_placa)
+  FOREIGN KEY (nro_placa_policia_a_cargo) REFERENCES Oficial_De_Policia(numero_de_placa)
 );
 
-CREATE TABLE Custodias(
+CREATE TABLE Custodia(
   id integer PRIMARY KEY,
   fecha datetime not null,
   comentario varchar(255) not null,
+  localizacion varchar(255) not null,
   evidencia_id integer not null,
   nro_placa_policia_a_cargo integer not null,
-  FOREIGN KEY (evidencia_id) REFERENCES Evidencias(id),
-  FOREIGN KEY (nro_placa_policia_a_cargo) REFERENCES Oficiales_De_Policia(numero_de_placa)
+  FOREIGN KEY (evidencia_id) REFERENCES Evidencia(id),
+  FOREIGN KEY (nro_placa_policia_a_cargo) REFERENCES Oficial_De_Policia(numero_de_placa)
 );
 
-CREATE TABLE Congelados(
+CREATE TABLE Congelado(
   caso_id integer primary key,
   fecha date not null,
   comentario varchar(255) not null,
-  FOREIGN KEY (caso_id) references Casos_Criminales(id)
+  FOREIGN KEY (caso_id) references Caso_Criminal(id)
 );
 
-CREATE TABLE Descartados(
+CREATE TABLE Descartado(
   caso_id integer primary key,
   fecha date not null,
   motivo varchar(255) not null,
-  FOREIGN KEY (caso_id) references Casos_Criminales(id)
+  FOREIGN KEY (caso_id) references Caso_Criminal(id)
 );
 
-CREATE TABLE Resueltos(
+CREATE TABLE Resuelto(
   caso_id integer primary key,
   fecha date not null,
   descripcion varchar(255) not null,
   nro_placa_policia_cerro integer not null,
-  FOREIGN KEY (caso_id) references Casos_Criminales(id),
-  FOREIGN KEY (nro_placa_policia_cerro) REFERENCES Oficiales_De_Policia(numero_de_placa)
+  FOREIGN KEY (caso_id) references Caso_Criminal(id),
+  FOREIGN KEY (nro_placa_policia_cerro) REFERENCES Oficial_De_Policia(numero_de_placa)
 );
 
-CREATE TABLE Pendientes(
+CREATE TABLE Pendiente(
   caso_id integer primary key,
-  FOREIGN KEY (caso_id) references Casos_Criminales(id)
+  FOREIGN KEY (caso_id) references Caso_Criminal(id)
 );
 
 CREATE TABLE Culpable(
@@ -331,16 +331,16 @@ CREATE TABLE Culpable(
   persona_dni integer,
 
   PRIMARY KEY (caso_id, persona_dni),
-  foreign key (caso_id)     references Resueltos(caso_id),
-  foreign key (persona_dni) references Personas(dni)
+  foreign key (caso_id)     references Resuelto(caso_id),
+  foreign key (persona_dni) references Persona(dni)
 );
 
 CREATE TABLE Investiga(
   caso_id integer not null,
   nro_placa_policia integer not null,
   es_investigador_principal boolean not null,
-  FOREIGN KEY (caso_id) REFERENCES Casos_Criminales(id),
-  FOREIGN KEY (nro_placa_policia) REFERENCES Oficiales_De_Policia(numero_de_placa)
+  FOREIGN KEY (caso_id) REFERENCES Caso_Criminal(id),
+  FOREIGN KEY (nro_placa_policia) REFERENCES Oficial_De_Policia(numero_de_placa)
 );
 
 \end{verbatim}
