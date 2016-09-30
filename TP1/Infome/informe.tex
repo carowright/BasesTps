@@ -359,6 +359,14 @@ from personas p
 where pa.nombre_rol ="Sospechoso";
 \end{verbatim}
 \item Direcciones donde convivieron personas sospechosas de diferentes casos
+\begin{verbatim}
+select id, numero, calle, count(dni) as dniInvolucrados from domicilio d
+join persona p on d.id = p.domicilio_id
+join involucra i on d.persona_dni = p.dni
+where i.nombre_rol = “Sospechoso"
+group by d.id
+having COUNT(dniInvolucrados) > 1
+\end{verbatim}
 \item Oficiales que participaron en la cadena de custodia de evidencias para más de un
 caso.
 \begin{verbatim}
