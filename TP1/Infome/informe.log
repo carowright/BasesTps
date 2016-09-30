@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.9.6)  30 SEP 2016 07:47
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.9.6)  30 SEP 2016 17:33
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1047,187 +1047,379 @@ Package babel Info: Redefining spanish shorthand "!
 Package babel Info: Redefining spanish shorthand "?
 (babel)             in language  on input line 166.
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 347.
+(babel)             in language  on input line 351.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 347.
+(babel)             in language  on input line 351.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 347.
+(babel)             in language  on input line 351.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 347.
+(babel)             in language  on input line 351.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 347.
+(babel)             in language  on input line 351.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 347.
+(babel)             in language  on input line 351.
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 347.
+(babel)             in language  on input line 351.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 347.
+(babel)             in language  on input line 351.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 347.
+(babel)             in language  on input line 351.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 347.
+(babel)             in language  on input line 351.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 347.
+(babel)             in language  on input line 351.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 347.
+(babel)             in language  on input line 351.
  [4]
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 347.
+(babel)             in language  on input line 351.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 347.
+(babel)             in language  on input line 351.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 347.
+(babel)             in language  on input line 351.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 347.
+(babel)             in language  on input line 351.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 347.
+(babel)             in language  on input line 351.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 347.
+(babel)             in language  on input line 351.
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 347.
+(babel)             in language  on input line 351.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 347.
+(babel)             in language  on input line 351.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 347.
+(babel)             in language  on input line 351.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 347.
+(babel)             in language  on input line 351.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 347.
+(babel)             in language  on input line 351.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 347.
+(babel)             in language  on input line 351.
  [5]
-Overfull \hbox (0.66005pt too wide) in paragraph at lines 347--347
-[]  \OT1/cmtt/m/n/10 FOREIGN KEY (caso_id, persona_dni) REFERENCES Participa (c
+Overfull \hbox (0.66005pt too wide) in paragraph at lines 351--351
+[]  \OT1/cmtt/m/n/10 FOREIGN KEY (caso_id, persona_dni) REFERENCES Involucra (c
 aso_id, persona_dni),[] 
  []
 
 
-Overfull \hbox (37.40973pt too wide) in paragraph at lines 347--347
+Overfull \hbox (37.40973pt too wide) in paragraph at lines 351--351
 []  \OT1/cmtt/m/n/10 FOREIGN KEY (nro_placa_policia_a_cargo) REFERENCES Oficial
 _De_Policia(numero_de_placa)[] 
  []
 
 
-Overfull \hbox (37.40973pt too wide) in paragraph at lines 347--347
+Overfull \hbox (37.40973pt too wide) in paragraph at lines 351--351
 []  \OT1/cmtt/m/n/10 FOREIGN KEY (nro_placa_policia_a_cargo) REFERENCES Oficial
 _De_Policia(numero_de_placa)[] 
  []
 
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 347.
+(babel)             in language  on input line 351.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 347.
+(babel)             in language  on input line 351.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 347.
+(babel)             in language  on input line 351.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 347.
+(babel)             in language  on input line 351.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 347.
+(babel)             in language  on input line 351.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 347.
+(babel)             in language  on input line 351.
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 347.
+(babel)             in language  on input line 351.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 347.
+(babel)             in language  on input line 351.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 347.
+(babel)             in language  on input line 351.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 347.
+(babel)             in language  on input line 351.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 347.
+(babel)             in language  on input line 351.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 347.
+(babel)             in language  on input line 351.
 [6]
-Overfull \hbox (26.90982pt too wide) in paragraph at lines 347--347
+Overfull \hbox (26.90982pt too wide) in paragraph at lines 351--351
 []  \OT1/cmtt/m/n/10 FOREIGN KEY (nro_placa_policia_cerro) REFERENCES Oficial_D
 e_Policia(numero_de_placa)[] 
  []
 
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 348.
+(babel)             in language  on input line 352.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 348.
+(babel)             in language  on input line 352.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 348.
+(babel)             in language  on input line 352.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 348.
+(babel)             in language  on input line 352.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 348.
+(babel)             in language  on input line 352.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 348.
+(babel)             in language  on input line 352.
+
+Overfull \hbox (26.90982pt too wide) in paragraph at lines 461--461
+[]  \OT1/cmtt/m/n/10 IF (NEW.fecha < (select fecha from caso_criminal cc where 
+NEW.caso_id = cc.id)) THEN[] 
+ []
+
+
+Overfull \hbox (84.65932pt too wide) in paragraph at lines 461--461
+[]    \OT1/cmtt/m/n/10 SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'La fecha no 
+puede ser menor a la fecha del caso';[] 
+ []
+
+
+Overfull \hbox (26.90982pt too wide) in paragraph at lines 461--461
+[]  \OT1/cmtt/m/n/10 IF (NEW.fecha < (select fecha from caso_criminal cc where 
+NEW.caso_id = cc.id)) THEN[] 
+ []
+
+
+Overfull \hbox (84.65932pt too wide) in paragraph at lines 461--461
+[]    \OT1/cmtt/m/n/10 SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'La fecha no 
+puede ser menor a la fecha del caso';[] 
+ []
+
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 350.
+(babel)             in language  on input line 461.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 350.
+(babel)             in language  on input line 461.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 350.
+(babel)             in language  on input line 461.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 350.
+(babel)             in language  on input line 461.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 350.
+(babel)             in language  on input line 461.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 350.
+(babel)             in language  on input line 461.
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 372.
+(babel)             in language  on input line 461.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 372.
+(babel)             in language  on input line 461.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 372.
+(babel)             in language  on input line 461.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 372.
+(babel)             in language  on input line 461.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 372.
+(babel)             in language  on input line 461.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 372.
-Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 372.
-Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 372.
-Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 372.
-Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 372.
-Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 372.
-Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 372.
+(babel)             in language  on input line 461.
 [7]
-Overfull \hbox (466.65623pt too wide) in paragraph at lines 374--374
+Overfull \hbox (26.90982pt too wide) in paragraph at lines 461--461
+[]  \OT1/cmtt/m/n/10 IF (NEW.fecha < (select fecha from caso_criminal cc where 
+NEW.caso_id = cc.id)) THEN[] 
+ []
+
+
+Overfull \hbox (84.65932pt too wide) in paragraph at lines 461--461
+[]    \OT1/cmtt/m/n/10 SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'La fecha no 
+puede ser menor a la fecha del caso';[] 
+ []
+
+
+Overfull \hbox (26.90982pt too wide) in paragraph at lines 461--461
+[]  \OT1/cmtt/m/n/10 IF (NEW.fecha < (select fecha from caso_criminal cc where 
+NEW.caso_id = cc.id)) THEN[] 
+ []
+
+
+Overfull \hbox (84.65932pt too wide) in paragraph at lines 461--461
+[]    \OT1/cmtt/m/n/10 SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'La fecha no 
+puede ser menor a la fecha del caso';[] 
+ []
+
+
+Overfull \hbox (26.90982pt too wide) in paragraph at lines 461--461
+[]  \OT1/cmtt/m/n/10 IF (NEW.fecha < (select fecha from caso_criminal cc where 
+NEW.caso_id = cc.id)) THEN[] 
+ []
+
+
+Overfull \hbox (84.65932pt too wide) in paragraph at lines 461--461
+[]    \OT1/cmtt/m/n/10 SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'La fecha no 
+puede ser menor a la fecha del caso';[] 
+ []
+
+
+Overfull \hbox (26.90982pt too wide) in paragraph at lines 461--461
+[]  \OT1/cmtt/m/n/10 IF (NEW.fecha < (select fecha from caso_criminal cc where 
+NEW.caso_id = cc.id)) THEN[] 
+ []
+
+
+Overfull \hbox (84.65932pt too wide) in paragraph at lines 461--461
+[]    \OT1/cmtt/m/n/10 SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'La fecha no 
+puede ser menor a la fecha del caso';[] 
+ []
+
+
+Overfull \hbox (26.90982pt too wide) in paragraph at lines 461--461
+[]  \OT1/cmtt/m/n/10 IF (NEW.fecha > (select fecha from caso_criminal cc where 
+NEW.caso_id = cc.id)) THEN[] 
+ []
+
+
+Overfull \hbox (84.65932pt too wide) in paragraph at lines 461--461
+[]    \OT1/cmtt/m/n/10 SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'La fecha no 
+puede ser mayor a la fecha del caso';[] 
+ []
+
+
+Overfull \hbox (26.90982pt too wide) in paragraph at lines 461--461
+[]  \OT1/cmtt/m/n/10 IF (NEW.fecha > (select fecha from caso_criminal cc where 
+NEW.caso_id = cc.id)) THEN[] 
+ []
+
+
+Overfull \hbox (84.65932pt too wide) in paragraph at lines 461--461
+[]    \OT1/cmtt/m/n/10 SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'La fecha no 
+puede ser mayor a la fecha del caso';[] 
+ []
+
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 461.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 461.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 461.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 461.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 461.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 461.
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 461.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 461.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 461.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 461.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 461.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 461.
+[8]
+Overfull \hbox (26.90982pt too wide) in paragraph at lines 461--461
+[]  \OT1/cmtt/m/n/10 IF (NEW.fecha < (select fecha from caso_criminal cc where 
+NEW.caso_id = cc.id)) THEN[] 
+ []
+
+
+Overfull \hbox (84.65932pt too wide) in paragraph at lines 461--461
+[]    \OT1/cmtt/m/n/10 SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'La fecha no 
+puede ser menor a la fecha del caso';[] 
+ []
+
+
+Overfull \hbox (26.90982pt too wide) in paragraph at lines 461--461
+[]  \OT1/cmtt/m/n/10 IF (NEW.fecha < (select fecha from caso_criminal cc where 
+NEW.caso_id = cc.id)) THEN[] 
+ []
+
+
+Overfull \hbox (84.65932pt too wide) in paragraph at lines 461--461
+[]    \OT1/cmtt/m/n/10 SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'La fecha no 
+puede ser menor a la fecha del caso';[] 
+ []
+
+
+Overfull \hbox (63.6595pt too wide) in paragraph at lines 461--461
+[]  \OT1/cmtt/m/n/10 IF (NEW.fecha < (select fecha_ingreso from evidencia e whe
+re NEW.evidencia_id = e.id)) THEN[] 
+ []
+
+
+Overfull \hbox (179.1585pt too wide) in paragraph at lines 461--461
+[]    \OT1/cmtt/m/n/10 SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'La fecha no 
+puede ser menor a la fecha de ingreso de la evidencia';[] 
+ []
+
+
+Overfull \hbox (63.6595pt too wide) in paragraph at lines 461--461
+[]  \OT1/cmtt/m/n/10 IF (NEW.fecha < (select fecha_ingreso from evidencia e whe
+re NEW.evidencia_id = e.id)) THEN[] 
+ []
+
+
+Overfull \hbox (179.1585pt too wide) in paragraph at lines 461--461
+[]    \OT1/cmtt/m/n/10 SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'La fecha no 
+puede ser menor a la fecha de ingreso de la evidencia';[] 
+ []
+
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 463.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 463.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 463.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 463.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 463.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 463.
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 482.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 482.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 482.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 482.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 482.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 482.
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 482.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 482.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 482.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 482.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 482.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 482.
+[9]
+Overfull \hbox (466.65623pt too wide) in paragraph at lines 495--495
  []\OT1/cmtt/m/n/10 selecte.fecha,  pa.persona_dni as dni, e.descripcion from e
 ventos e inner join participa pa where pa.persona_dni = e.persona_dni and pa.ca
 so_id = 1 order by e.fecha;[] 
  []
 
 
-Overfull \hbox (687.15431pt too wide) in paragraph at lines 379--379
+Overfull \hbox (687.15431pt too wide) in paragraph at lines 500--500
  []\OT1/cmtt/m/n/10 select numero_de_placa, count(caso_id) as nroCasosResuelto 
 from resueltos inner join oficiales_de_policia on nro_placa_policia_cerro = num
 ero_de_placa group by numero_de_placa order by nroCasosResuelto desc;[] 
  []
 
 
-Overfull \hbox (708.15413pt too wide) in paragraph at lines 383--383
+Overfull \hbox (708.15413pt too wide) in paragraph at lines 504--504
  []\OT1/cmtt/m/n/10 select e.id as evidencia_id, c.localizacion from custodias 
 c inner join evidencias e on e.id = c.evidencia_id where e.caso_id = 1 and c.fe
 cha = (select max(fecha) from custodias c2 where c2.evidencia_id = e.id);[] 
  []
 
 
-Overfull \hbox (608.405pt too wide) in paragraph at lines 387--387
+Overfull \hbox (608.405pt too wide) in paragraph at lines 508--508
  []\OT1/cmtt/m/n/10 select op.numero_de_placa, pa.nombre_rol from oficiales_de_
 policia op inner join personas pe on pe.dni = op.persona_dni inner join partici
 pa pa on pa.persona_dni = pe.dni where pa.caso_id = 2;[] 
  []
 
 
-Overfull \hbox (435.15651pt too wide) in paragraph at lines 395--395
+Overfull \hbox (435.15651pt too wide) in paragraph at lines 516--516
  []\OT1/cmtt/m/n/10 select count(co.caso_id) as congelados, count(pe.caso_id) a
 s pendientes, count(re.caso_id) as resueltos, count(de.caso_id) as descartados 
 from casos_criminales[] 
  []
 
 
-Overfull \hbox (975.9018pt too wide) in paragraph at lines 404--404
+Overfull \hbox (975.9018pt too wide) in paragraph at lines 525--525
  []\OT1/cmtt/m/n/10 select cc.id as casoID, t.id as testimonioID, t.fecha, t.te
 xto from CATEGORIA ca inner join casos_criminales cc on ca.caso_id = cc.id inne
 r join participa p on cc.id = p.caso_id inner join testimonios t on p.caso_id =
@@ -1235,62 +1427,62 @@ r join participa p on cc.id = p.caso_id inner join testimonios t on p.caso_id =
  []
 
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 407.
+(babel)             in language  on input line 528.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 407.
+(babel)             in language  on input line 528.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 407.
+(babel)             in language  on input line 528.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 407.
+(babel)             in language  on input line 528.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 407.
+(babel)             in language  on input line 528.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 407.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 410.
+(babel)             in language  on input line 528.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 531.
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 410.
+(babel)             in language  on input line 531.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 410.
+(babel)             in language  on input line 531.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 410.
+(babel)             in language  on input line 531.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 410.
+(babel)             in language  on input line 531.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 410.
+(babel)             in language  on input line 531.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 410.
+(babel)             in language  on input line 531.
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 410.
+(babel)             in language  on input line 531.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 410.
+(babel)             in language  on input line 531.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 410.
+(babel)             in language  on input line 531.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 410.
+(babel)             in language  on input line 531.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 410.
+(babel)             in language  on input line 531.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 410.
-[8]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 410.
+(babel)             in language  on input line 531.
+[10]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 531.
  (./informe.aux
 LaTeX Info: Redefining \. on input line 23.
 LaTeX Info: Redefining \% on input line 23.
 )
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 410.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 410.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 531.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 531.
 Package rerunfilecheck Info: File `informe.out' has not changed.
-(rerunfilecheck)             Checksum: 93D357F3707F1DEF9A9A0BB4C927C8BF;450.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 410.
+(rerunfilecheck)             Checksum: FC3153A4BEF00D03DA20B30DFF891B60;437.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 531.
  ) 
 Here is how much of TeX's memory you used:
- 9605 strings out of 493304
- 133160 string characters out of 6139872
+ 9607 strings out of 493304
+ 133173 string characters out of 6139872
  267648 words of memory out of 5000000
  12902 multiletter control sequences out of 15000+600000
  8383 words of font info for 33 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 34i,9n,56p,613b,463s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 34i,9n,56p,613b,526s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texli
@@ -1301,10 +1493,10 @@ ype1/public/amsfonts/cm/cmssbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1
 /public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
 c/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
 onts/cm/cmtt10.pfb>
-Output written on informe.pdf (9 pages, 505796 bytes).
+Output written on informe.pdf (11 pages, 508850 bytes).
 PDF statistics:
- 134 PDF objects out of 1000 (max. 8388607)
- 109 compressed objects within 2 object streams
- 18 named destinations out of 1000 (max. 500000)
+ 143 PDF objects out of 1000 (max. 8388607)
+ 116 compressed objects within 2 object streams
+ 20 named destinations out of 1000 (max. 500000)
  75 words of extra memory for PDF output out of 10000 (max. 10000000)
 

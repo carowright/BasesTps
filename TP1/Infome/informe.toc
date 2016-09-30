@@ -4,6 +4,6 @@
 \contentsline {subsection}{\numberline {2.1}Modelo de Entidad Relaci\IeC {\'o}n}{2}{subsection.2.1}
 \contentsline {subsection}{\numberline {2.2}Modelo Relacional}{2}{subsection.2.2}
 \contentsline {section}{\numberline {3}Dise\IeC {\~n}o F\IeC {\'\i }sico}{4}{section.3}
-\contentsline {subsection}{\numberline {3.1}Inserci\IeC {\'o}n de datos}{7}{subsection.3.1}
-\contentsline {section}{\numberline {4}C\IeC {\'o}digo}{7}{section.4}
-\contentsline {section}{\numberline {5}Conclusion}{8}{section.5}
+\contentsline {subsection}{\numberline {3.1}Triggers}{7}{subsection.3.1}
+\contentsline {section}{\numberline {4}C\IeC {\'o}digo}{9}{section.4}
+\contentsline {section}{\numberline {5}Conclusion}{10}{section.5}
