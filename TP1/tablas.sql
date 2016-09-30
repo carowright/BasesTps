@@ -123,7 +123,7 @@ CREATE TABLE Evento(
   descripcion varchar(255) not null,
   fecha datetime not null,
 
-  FOREIGN KEY (caso_id, persona_dni) REFERENCES Participa (caso_id, persona_dni)
+  FOREIGN KEY (caso_id, persona_dni) REFERENCES Involucra (caso_id, persona_dni)
 );
 
 CREATE TABLE Evidencia(
@@ -145,7 +145,7 @@ CREATE TABLE Testimonio(
   texto varchar(255) not null,
   fecha datetime not null,
   nro_placa_policia_a_cargo integer not null,
-  FOREIGN KEY (caso_id, persona_dni) REFERENCES Participa (caso_id, persona_dni),
+  FOREIGN KEY (caso_id, persona_dni) REFERENCES Involucra (caso_id, persona_dni),
   FOREIGN KEY (nro_placa_policia_a_cargo) REFERENCES Oficial_De_Policia(numero_de_placa)
 );
 

@@ -64,8 +64,8 @@ end
 [
  :Culpable,:Congelado,:Pendiente,:Resuelto,
 :Descartado,:Investiga,
-:Custodia,:Telefono,:Linea_Telefonica,:Testimonio,:Oficial_De_Policia,:Departamento,:Localidad,:Rango,
-:Evento,:Evidencia,:Involucra,:Rol,:Servicio,:Caso_Criminal,:Persona,:Domicilio,:Categoria
+:Custodia,:Telefono,:LineaTelefonica,:Testimonio,:OficialDePolicia,:Departamento,:Localidad,:Rango,
+:Evento,:Evidencia,:Involucra,:Rol,:Servicio,:CasoCriminal,:Persona,:Domicilio,:Categoria
 ].each do |class_name|
   Object.const_set(class_name, Class.new(ActiveRecord::Base))
 end
@@ -101,7 +101,7 @@ def populate_departamentos
   Departamento.populate 50 do |dp|
     dp.nombre = "DPT_#{Faker::GameOfThrones.house}_#{Faker::Hacker.abbreviation}_#{rand(99)}"
     dp.nombre_localidad = LOCALIDADES
-    LineasTelefonica.populate 1..3 do |lt|
+    LineaTelefonica.populate 1..3 do |lt|
       lt.numero = gen_phone_number
       lt.nombre_departamento = dp.nombre
     end
@@ -119,7 +119,7 @@ end
 def populate_personas
   _departamentos = Departamento.all.pluck(:nombre)
 
-  Direccion.populate 250..350 do |direccion|
+  Domicilio.populate 250..350 do |direccion|
     direccion.calle  = Faker::Address.street_name
     direccion.numero = Faker::Address.building_number
 
@@ -128,11 +128,11 @@ def populate_personas
       persona.nombre    = Faker::Name.first_name
       persona.apellido  = Faker::Name.last_name
       persona.fecha_nacimiento =  Faker::Date.between(80.years.ago, Date.today)
-      persona.direccion_id = direccion.id
+      persona.domicilio_id = direccion.id
       if rand(3) == 1
-        OficialesDePolicia.populate 1 do |oficial|
+        OficialDePolicia.populate 1 do |oficial|
           oficial.persona_dni          = persona.dni
-          oficial.numero_de_placa      = 10000..100000
+          oficial.numero_de_placa      = 10000..1000000
           oficial.fecha_de_ingreso     = Faker::Date.between(20.years.ago, Date.today)
           oficial.numero_de_escritorio = 0..100000
           oficial.nombre_rango         = RANGOS
@@ -152,9 +152,9 @@ end
 
 def populate_casos
   _dnis   = Persona.all.pluck(:dni)
-  _placas = OficialesDePolicia.all.pluck(:numero_de_placa)
+  _placas = OficialDePolicia.all.pluck(:numero_de_placa)
 
-  CasosCriminal.populate 135..165 do |cc|
+  CasoCriminal.populate 135..165 do |cc|
     cc.fecha = Faker::Time.between(5.years.ago, DateTime.now)
     cc.lugar = Faker::Pokemon.location
     cc.descripcion = Faker::Lorem.sentence
@@ -164,7 +164,7 @@ def populate_casos
   end
 
 
-  CasosCriminal.all.each do |cc|
+  CasoCriminal.all.each do |cc|
     _policias_no_involucrados = _placas-get_placas_involucradas(cc)
 
     case rand(4)
@@ -201,7 +201,7 @@ def populate_casos
     _involucrados = _dnis.sample(rand(7)+1)
 
     _involucrados.each_with_index do |dni, index|
-      Participa.create(
+      Involucra.create(
         caso_id: cc.id,
         persona_dni: dni,
         nombre_rol: ROLES.sample
@@ -210,7 +210,7 @@ def populate_casos
         e.caso_id     = cc.id
         e.persona_dni = dni
         e.descripcion = Faker::Hipster.sentence
-        e.fecha       = Faker::Time.between(cc.fecha - 30.days, cc.fecha)
+        e.fecha       = Faker::Time.between(cc.fecha - 30.days, cc.fecha - 1.days)
       end
 
       if rand(3) < 2
@@ -256,12 +256,12 @@ end
 
 
 def get_placas_involucradas(cc)
-  ActiveRecord::Base.connection.execute("select op.numero_de_placa from personas p inner join oficiales_de_policia op inner join participa ccp on p.dni=op.persona_dni and ccp.persona_dni=p.dni and ccp.caso_id=#{cc.id}").map {|_p| _p['numero_de_placa']}
+  ActiveRecord::Base.connection.execute("select op.numero_de_placa from persona p inner join oficial_de_policia op inner join involucra ccp on p.dni=op.persona_dni and ccp.persona_dni=p.dni and ccp.caso_id=#{cc.id}").map {|_p| _p['numero_de_placa']}
 end
 
 def populate_evidencias
-  _placas = OficialesDePolicia.all.pluck(:numero_de_placa)
-  CasosCriminal.all.each do |cc|
+  _placas = OficialDePolicia.all.pluck(:numero_de_placa)
+  CasoCriminal.all.each do |cc|
 
 
     _placas_policias_involucrados = get_placas_involucradas(cc)
@@ -278,6 +278,7 @@ def populate_evidencias
         cstd.fecha = Faker::Time.between(evi.fecha_ingreso, evi.fecha_sellado)
         cstd.comentario = Faker::Hacker.say_something_smart
         cstd.evidencia_id = evi.id
+        cstd.localizacion = Faker::Team.state
         cstd.nro_placa_policia_a_cargo = [_placas-_placas_policias_involucrados].sample
       end
     end
@@ -299,9 +300,7 @@ case ARGV[0]
     populate_casos
   when 'evidencias'
     populate_evidencias
-  when 'all'
-  when nil 
-    clean
+  when nil, 'all'
     populate_statics
     populate_departamentos
     populate_personas

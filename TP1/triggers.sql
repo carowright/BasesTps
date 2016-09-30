@@ -1,119 +1,119 @@
 DELIMITER //
 
-CREATE TRIGGER chk_in_descartados_fecha
-BEFORE INSERT ON `descartados`
+CREATE TRIGGER chk_in_descartado_fecha
+BEFORE INSERT ON `descartado`
 FOR EACH ROW
 BEGIN
-  IF (NEW.fecha < (select fecha from casos_criminales cc where NEW.caso_id = cc.id)) THEN
+  IF (NEW.fecha < (select fecha from caso_criminal cc where NEW.caso_id = cc.id)) THEN
     SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'La fecha no puede ser menor a la fecha del caso';
   END IF;
 END //
 
-CREATE TRIGGER chk_up_descartados_fecha
-BEFORE UPDATE ON `descartados`
+CREATE TRIGGER chk_up_descartado_fecha
+BEFORE UPDATE ON `descartado`
 FOR EACH ROW
 BEGIN
-  IF (NEW.fecha < (select fecha from casos_criminales cc where NEW.caso_id = cc.id)) THEN
-    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'La fecha no puede ser menor a la fecha del caso';
-  END IF;
-END //
-
-
-
-CREATE TRIGGER chk_in_congelados_fecha
-BEFORE INSERT ON `congelados`
-FOR EACH ROW
-BEGIN
-  IF (NEW.fecha < (select fecha from casos_criminales cc where NEW.caso_id = cc.id)) THEN
-    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'La fecha no puede ser menor a la fecha del caso';
-  END IF;
-END //
-
-CREATE TRIGGER chk_up_congelados_fecha
-BEFORE UPDATE ON `congelados`
-FOR EACH ROW
-BEGIN
-  IF (NEW.fecha < (select fecha from casos_criminales cc where NEW.caso_id = cc.id)) THEN
+  IF (NEW.fecha < (select fecha from caso_criminal cc where NEW.caso_id = cc.id)) THEN
     SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'La fecha no puede ser menor a la fecha del caso';
   END IF;
 END //
 
 
 
-CREATE TRIGGER chk_in_resueltos_fecha
-BEFORE INSERT ON `resueltos`
+CREATE TRIGGER chk_in_congelado_fecha
+BEFORE INSERT ON `congelado`
 FOR EACH ROW
 BEGIN
-  IF (NEW.fecha < (select fecha from casos_criminales cc where NEW.caso_id = cc.id)) THEN
+  IF (NEW.fecha < (select fecha from caso_criminal cc where NEW.caso_id = cc.id)) THEN
     SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'La fecha no puede ser menor a la fecha del caso';
   END IF;
 END //
 
-CREATE TRIGGER chk_up_resueltos_fecha
-BEFORE UPDATE ON `resueltos`
+CREATE TRIGGER chk_up_congelado_fecha
+BEFORE UPDATE ON `congelado`
 FOR EACH ROW
 BEGIN
-  IF (NEW.fecha < (select fecha from casos_criminales cc where NEW.caso_id = cc.id)) THEN
-    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'La fecha no puede ser menor a la fecha del caso';
-  END IF;
-END //
-
-
-
-CREATE TRIGGER chk_in_eventos_fecha
-BEFORE INSERT ON `eventos`
-FOR EACH ROW
-BEGIN
-  IF (NEW.fecha < (select fecha from casos_criminales cc where NEW.caso_id = cc.id)) THEN
-    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'La fecha no puede ser menor a la fecha del caso';
-  END IF;
-END //
-
-CREATE TRIGGER chk_up_eventos_fecha
-BEFORE UPDATE ON `eventos`
-FOR EACH ROW
-BEGIN
-  IF (NEW.fecha < (select fecha from casos_criminales cc where NEW.caso_id = cc.id)) THEN
+  IF (NEW.fecha < (select fecha from caso_criminal cc where NEW.caso_id = cc.id)) THEN
     SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'La fecha no puede ser menor a la fecha del caso';
   END IF;
 END //
 
 
 
-CREATE TRIGGER chk_in_testimonios_fecha
-BEFORE INSERT ON `testimonios`
+CREATE TRIGGER chk_in_resuelto_fecha
+BEFORE INSERT ON `resuelto`
 FOR EACH ROW
 BEGIN
-  IF (NEW.fecha < (select fecha from casos_criminales cc where NEW.caso_id = cc.id)) THEN
+  IF (NEW.fecha < (select fecha from caso_criminal cc where NEW.caso_id = cc.id)) THEN
     SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'La fecha no puede ser menor a la fecha del caso';
   END IF;
 END //
 
-CREATE TRIGGER chk_up_testimonios_fecha
-BEFORE UPDATE ON `testimonios`
+CREATE TRIGGER chk_up_resuelto_fecha
+BEFORE UPDATE ON `resuelto`
 FOR EACH ROW
 BEGIN
-  IF (NEW.fecha < (select fecha from casos_criminales cc where NEW.caso_id = cc.id)) THEN
+  IF (NEW.fecha < (select fecha from caso_criminal cc where NEW.caso_id = cc.id)) THEN
     SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'La fecha no puede ser menor a la fecha del caso';
   END IF;
 END //
 
 
 
-CREATE TRIGGER chk_in_custodias_fecha
-BEFORE INSERT ON `custodias`
+CREATE TRIGGER chk_in_evento_fecha
+BEFORE INSERT ON `evento`
 FOR EACH ROW
 BEGIN
-  IF (NEW.fecha < (select fecha_ingreso from evidencias e where NEW.evidencia_id = e.id)) THEN
+  IF (NEW.fecha > (select fecha from caso_criminal cc where NEW.caso_id = cc.id)) THEN
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'La fecha no puede ser mayor a la fecha del caso';
+  END IF;
+END //
+
+CREATE TRIGGER chk_up_evento_fecha
+BEFORE UPDATE ON `evento`
+FOR EACH ROW
+BEGIN
+  IF (NEW.fecha > (select fecha from caso_criminal cc where NEW.caso_id = cc.id)) THEN
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'La fecha no puede ser mayor a la fecha del caso';
+  END IF;
+END //
+
+
+
+CREATE TRIGGER chk_in_testimonio_fecha
+BEFORE INSERT ON `testimonio`
+FOR EACH ROW
+BEGIN
+  IF (NEW.fecha < (select fecha from caso_criminal cc where NEW.caso_id = cc.id)) THEN
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'La fecha no puede ser menor a la fecha del caso';
+  END IF;
+END //
+
+CREATE TRIGGER chk_up_testimonio_fecha
+BEFORE UPDATE ON `testimonio`
+FOR EACH ROW
+BEGIN
+  IF (NEW.fecha < (select fecha from caso_criminal cc where NEW.caso_id = cc.id)) THEN
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'La fecha no puede ser menor a la fecha del caso';
+  END IF;
+END //
+
+
+
+CREATE TRIGGER chk_in_custodia_fecha
+BEFORE INSERT ON `custodia`
+FOR EACH ROW
+BEGIN
+  IF (NEW.fecha < (select fecha_ingreso from evidencia e where NEW.evidencia_id = e.id)) THEN
     SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'La fecha no puede ser menor a la fecha de ingreso de la evidencia';
   END IF;
 END //
 
-CREATE TRIGGER chk_up_custodias_fecha
-BEFORE UPDATE ON `custodias`
+CREATE TRIGGER chk_up_custodia_fecha
+BEFORE UPDATE ON `custodia`
 FOR EACH ROW
 BEGIN
-  IF (NEW.fecha < (select fecha_ingreso from evidencias e where NEW.evidencia_id = e.id)) THEN
+  IF (NEW.fecha < (select fecha_ingreso from evidencia e where NEW.evidencia_id = e.id)) THEN
     SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'La fecha no puede ser menor a la fecha de ingreso de la evidencia';
   END IF;
 END //

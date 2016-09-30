@@ -1,148 +1,42 @@
-CREATE TABLE Testimonio(
-id integer PRIMARY KEY,
-texto char(15) not null,
-hora time not null,
-fecha date not null,
-FOREIGN KEY (numeroPlacaPolicia) REFERENCES OficialDePolicia(numeroPlacaPolicia)
-);
+# 1 -- Datos de las personas que fueron sospechosas.
+select p.dni, p.fecha_nacimiento, p.nombre, p.apellido 
+from persona p 
+  inner join involucra inv 
+  on p.dni = inv.persona_dni 
+where inv.nombre_rol ="Sospechoso";
 
-CREATE TABLE Evidencia(
-id integer PRIMARY KEY,
-fechaIngreso date not null,
-descripcion char(128) not null,
-fechaEncuentro date not null,
-horaEncuentro time not null,
-fechaSellado date not null,
-horaSellado time not null,
-FOREIGN KEY (idCaso) REFERENCES CasoCriminal(idCaso)
-);
+# 2 -- Direcciones donde convivieron personas sospechosas de diferentes casos
+select id, numero, calle, count(dni) as dniInvolucrados from domicilio d
+inner join persona p on d.id = p.domicilio_id
+inner join involucra inv on inv.persona_dni = p.dni
+where inv.nombre_rol = "Sospechoso"
+group by d.id
+having COUNT(dniInvolucrados) > 1
 
-CREATE TABLE Custodia(
-id integer PRIMARY KEY,
-fecha date not null,
-hora time not null,
-comentario char(128) not null,
-FOREIGN KEY (idEvidencia) REFERENCES Evidencia(idEvidencia),
-FOREIGN KEY (numeroPlacaPolicia) REFERENCES OficialDePolicia(numeroPlacaPolicia)
-);
+# 3 -- Oficiales que participaron en la cadena de custodia de evidencias para más de un caso.
+select numero_de_placa, count(caso_id) as casosInvolucrados
+from oficial_de_policia op inner join 
+custodia c on c.nro_placa_policia_a_cargo = op.numero_de_placa inner join 
+evidencia e on e.id = c.evidencia_id 
+group by op.numero_de_placa HAVING casosInvolucrados > 1;
 
-CREATE TABLE Direccion(
-id integer primary key,
-numero integer not null,
-calle char(30) not null 
-);
+# 4 -- La sucesión de eventos de personas involucradas en un caso.
+select e.fecha,  inv.persona_dni as dni, e.descripcion from evento e inner join involucra inv where inv.persona_dni = e.persona_dni and inv.caso_id = "ID DEL CASO" order by e.fecha;
 
-CREATE TABLE CasoCriminal(
-id integer primary key,
-fechaIngreso date not null,
-fecha date not null,
-hora time not null,
-lugar char(15) not null,
-descripcion char(128) not null,
-foreign key (nombreCategoria) references Categoria(nombreCategoria)
-);
+# 5 -- Un ranking de oficiales exitosos, es decir los que cerraron mayor cantidad de casos (resueltos).
+select numero_de_placa, count(caso_id) as nroCasosResueltos from resuelto inner join oficial_de_policia on nro_placa_policia_cerro = numero_de_placa group by numero_de_placa order by nroCasosResueltos desc;
 
-CREATE TABLE Congelado(
-id integer primary key references CasoCriminal(id),
-fecha date not null,
-comentario char(15) not null
-);
+# 6 -- Las ubicaciones de todas las evidencias de un caso.
+select e.id as evidencia_id, c.localizacion from custodia c inner join evidencia e on e.id = c.evidencia_id where e.caso_id = "ID DEL CASO" and c.fecha = (select max(fecha) from custodia c2 where c2.evidencia_id = e.id);
 
-CREATE TABLE Descartado(
-idCaso integer primary key references CasoCriminal(idCaso),
-fecha date not null,
-motivo char(15)
-);
+# 7 -- La lista de oficiales involucrados en un caso.
+select op.numero_de_placa, inv.nombre_rol from oficial_de_policia op inner join persona pe on pe.dni = op.persona_dni inner join involucra inv on inv.persona_dni = pe.dni where inv.caso_id = "ID DEL CASO";
 
-CREATE TABLE Resulto(
-idCaso integer primary key references CasoCriminal(idCaso),
-fecha date not null,
-descripcion char(15),
-FOREIGN KEY (numeroPlacaPolicia) REFERENCES OficialDePolicia(numeroPlacaPolicia)
-);
+# 8 -- Las categorías de casos ordenadas por cantidad de casos
+select cat.nombre, count(cc.id) as cantidadDeCasos from categoria cat inner join caso_criminal cc on cc.nombre_categoria = cat.nombre group by cat.nombre order by cantidadDeCasos desc;
 
-CREATE TABLE Pendiente(
-idCaso integer primary key references CasoCriminal(idCaso),
-fecha date not null,
-comentario char(15)
-);
+# 9 -- Todos los testimonios de un caso dado
+select t.fecha, t.persona_dni, t.texto from testimonio t where t.caso_id = "ID DEL CASO";
 
-CREATE TABLE Categoria(
-nombre char(15) primary key
-);
-
-CREATE TABLE Rol(
-nombre char(15) primary key
-);
-
-CREATE TABLE Persona(
-dni integer primary key,
-fechaNacimiento date not null,
-nombre char(15) not null,
-apellido char(15) not null,
-foreign key (idDireccion) references Direccion(idDireccion)
-);
-
-CREATE TABLE Telefono(
-numero integer primary key,
-foreign key (dni) references Persona(dni)
-);
-
-CREATE TABLE Evento(
-id integer primary key,
-descripcion char(128) not null,
-hora time not null,
-fecha date not null,
-foreign key (nombreRol) references Rol(nombreRol),
-foreign key (idCaso) references CasoCriminal(idCaso),
-foreign key (dni) references Persona(dni)
-);
-
-CREATE TABLE OficialDePolicia(
-numeroDePlaca integer primary key,
-fechaDeIngreso date not null,
-foreign key (nombreDeRango) references Rango(nombreRango),
-foreign key (nombreDeDepartamento) references Departamento(nombreDepartamento),
-numeroDeEscritorio integer
-);
-
-CREATE TABLE Servicio(
-nombre char(15) primary key
-);
-
-CREATE TABLE Departamento(
-nombre char(15) primary key,
-lineaTelefonica integer,
-foreign key (nombreLocalidad) references Localidad(nombreLocalidad),
-foreign key (nombreSupervisa) references Departamento(nombreSupervisa)
-);
-
-CREATE TABLE LineaTelefonica(
-numero int primary key,
-nombreDepartamento char(15) primary key references Departamento(nombreDepartamento)
-);
-
-CREATE TABLE Localidad(
-nombre char(15) primary key
-);
-
-CREATE TABLE Rango(
-nombre char(15) primary key
-);
-
-CREATE TABLE Declara(
-idTestimonio integer primary key references Testimonio(idTestimonio),
-idCaso integer primary key references CasoCriminal(idCaso),
-dni integer primary key references Persona(dni)
-);
-
-CREATE TABLE Tiene(
-nombreRol char(15) primary key references Rol(nombreRol),
-idCaso integer primary key references CasoCriminal(idCaso),
-dni integer primary key references Persona(dni)
-);
-
-CREATE TABLE Culpable( 
-idCaso integer primary key references CasoCriminal(idCaso),
-dni integer primary key references Persona(dni)
-);
+# 10 -- Para una categoría en particular listar, para cada uno de los casos, los testimonios asociados
+select cc.id as casoId, te.texto as Testimonio from categoria cat inner join caso_criminal cc on cc.nombre_categoria = cat.nombre inner join involucra inv on inv.caso_id = cc.id inner join testimonio te on te.caso_id = inv.caso_id and te.persona_dni = inv.persona_dni where cat.nombre = "NOMBRE CATEGORIA";
