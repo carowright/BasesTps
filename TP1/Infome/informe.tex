@@ -462,21 +462,23 @@ END //
 
 \section{Código}
 Presentamos las funcionalidades que soporta nuestra base de datos.
+
 \begin{itemize}
 \item Datos de las personas que fueron sospechosas.
 \begin{verbatim}
-select p.* 
-from personas p 
-  inner join participa pa 
-  on p.dni = pa.persona_dni 
-where pa.nombre_rol ="Sospechoso";
+select p.dni, p.fecha_nacimiento, p.nombre, p.apellido 
+from persona p 
+	inner join involucra inv 
+	on p.dni = inv.persona_dni 
+where inv.nombre_rol ="Sospechoso";
 \end{verbatim}
 \item Direcciones donde convivieron personas sospechosas de diferentes casos
 \begin{verbatim}
-select id, numero, calle, count(dni) as dniInvolucrados from domicilio d
-join persona p on d.id = p.domicilio_id
-join involucra i on d.persona_dni = p.dni
-where i.nombre_rol = “Sospechoso"
+select id, numero, calle, count(dni) as dniInvolucrados 
+from domicilio d
+	inner join persona p on d.id = p.domicilio_id
+	inner join involucra inv on inv.persona_dni = p.dni
+where inv.nombre_rol = "Sospechoso"
 group by d.id
 having COUNT(dniInvolucrados) > 1
 \end{verbatim}
@@ -484,44 +486,70 @@ having COUNT(dniInvolucrados) > 1
 caso.
 \begin{verbatim}
 select numero_de_placa, count(caso_id) as casosInvolucrados
-from oficiales_de_policia op inner join 
-custodias c on c.nro_placa_policia_a_cargo = op.numero_de_placa inner join 
-evidencias e on e.id = c.evidencia_id 
+from oficial_de_policia op 
+	inner join custodia c on c.nro_placa_policia_a_cargo = op.numero_de_placa 
+	inner join evidencia e on e.id = c.evidencia_id 
 group by op.numero_de_placa HAVING casosInvolucrados > 1;
 \end{verbatim}
 \item La sucesión de eventos de personas involucradas en un caso.
 \begin{verbatim}
-selecte.fecha,  pa.persona_dni as dni, e.descripcion from eventos e inner join participa pa where pa.persona_dni = e.persona_dni and pa.caso_id = 1 order by e.fecha;
+select e.fecha,  inv.persona_dni as dni, e.descripcion 
+from evento e 
+	inner join involucra inv 
+where inv.persona_dni = e.persona_dni and inv.caso_id = "ID DEL CASO" 
+order by e.fecha;
+
 \end{verbatim}
 \item Un ranking de oficiales exitosos, es decir los que cerraron mayor cantidad de casos
 (resueltos).
 \begin{verbatim}
-select numero_de_placa, count(caso_id) as nroCasosResuelto from resueltos inner join oficiales_de_policia on nro_placa_policia_cerro = numero_de_placa group by numero_de_placa order by nroCasosResuelto desc;
+select numero_de_placa, count(caso_id) as nroCasosResueltos 
+from resuelto 
+	inner join oficial_de_policia on nro_placa_policia_cerro = numero_de_placa 
+group by numero_de_placa
+order by nroCasosResueltos desc;
 \end{verbatim}
 \item Las ubicaciones de todas las evidencias de un caso.
 \begin{verbatim}
-select e.id as evidencia_id, c.localizacion from custodias c inner join evidencias e on e.id = c.evidencia_id where e.caso_id = 1 and c.fecha = (select max(fecha) from custodias c2 where c2.evidencia_id = e.id);
+select e.id as evidencia_id, c.localizacion 
+from custodia c 
+	inner join evidencia e on e.id = c.evidencia_id 
+where e.caso_id = "ID DEL CASO" and c.fecha = 
+				(select max(fecha) 
+					from custodia c2 
+					where c2.evidencia_id = e.id);
 \end{verbatim}
 \item La lista de oficiales involucrados en un caso.
 \begin{verbatim}
-select op.numero_de_placa, pa.nombre_rol from oficiales_de_policia op inner join personas pe on pe.dni = op.persona_dni inner join participa pa on pa.persona_dni = pe.dni where pa.caso_id = 2;
+select op.numero_de_placa, inv.nombre_rol 
+from oficial_de_policia op 
+	inner join persona pe on pe.dni = op.persona_dni 
+	inner join involucra inv on inv.persona_dni = pe.dni 
+where inv.caso_id = "ID DEL CASO";
 \end{verbatim}
 \item Las categorías de casos ordenadas por cantidad de casos
 \begin{verbatim}
-select count(co.caso_id) as congelados, count(pe.caso_id) as pendientes, count(re.caso_id) as resueltos, count(de.caso_id) as descartados from casos_criminales 
-left join congelados  co on co.caso_id = id 
-left join pendientes  pe on pe.caso_id = id 
-left join resueltos   re on re.caso_id = id 
-left join descartados de on de.caso_id = id;
+select cat.nombre, count(cc.id) as cantidadDeCasos 
+from categoria cat 
+	inner join caso_criminal cc on cc.nombre_categoria = cat.nombre 
+group by cat.nombre 
+order by cantidadDeCasos desc;
 \end{verbatim}
 \item Todos los testimonios de un caso dado
 \begin{verbatim}
-select * from testimonios where t.caso_id = CASO_ID;
+select t.fecha, t.persona_dni, t.texto 
+from testimonio t 
+where t.caso_id = "ID DEL CASO";
 \end{verbatim}
 \item Para una categoría en particular listar, para cada uno de los casos, los testimonios
 asociados
 \begin{verbatim}
-select cc.id as casoID, t.id as testimonioID, t.fecha, t.texto from CATEGORIA ca inner join casos_criminales cc on ca.caso_id = cc.id inner join participa p on cc.id = p.caso_id inner join testimonios t on p.caso_id = t.caso_id and p.persona_dni = t.persona_dni;
+select cc.id as casoId, te.texto as Testimonio 
+from categoria cat 
+	inner join caso_criminal cc on cc.nombre_categoria = cat.nombre 
+	inner join involucra inv on inv.caso_id = cc.id 
+	inner join testimonio te on te.caso_id = inv.caso_id and te.persona_dni = inv.persona_dni 
+where cat.nombre = "NOMBRE CATEGORIA";
 \end{verbatim}
 \end{itemize}
 
