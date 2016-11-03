@@ -87,22 +87,92 @@ Basándonos en el diseño entregado en el Trabajo Práctico 1, hemos creado el s
 
 \subsubsection{Persona de rol}
 \begin{lstlisting}
-{
-	dni_persona: 36949514,
-	nombre: "Testiguador",
-	nombre_rol: "Testigo"
+{ 
+  [
+    {
+      nombre_rol: "Testigo"
+      personas: [
+              {
+            		dni_persona: 36949514,
+            	},
+              {
+              	dni_persona: 36949515,
+            	}
+          ]
+  },
+  {
+    nombre_rol: "Culpable"
+    personas: [
+              {
+              	dni_persona: 36949516,
+            	},
+              {
+              	dni_persona: 36949517,
+            	}
+          ]
+  }
+  ]
+  
 }
 \end{lstlisting}
 
 \subsubsection{Información de personas}
 \begin{lstlisting}
 {
-	nombre_rol: "Testigo",
-	dni_persona: 36949514,
-	fecha: 29/10/2016,
-	id_caso: 1, 
-	tipo: ROBO
+  [
+    {
+  		dni_persona: 36949514,
+  		
+  		caso_y_rol: [
+        {
+         id: 2,
+          fecha_ingreso: 31/10/2016,
+    		  fecha: 29/10/2016,
+    		  lugar: "Palermo",
+    		  descripcion: "Robo de billetera",
+    		  nombre_categoria: "Robo",
+    		  estado: "Pendiente"
+        },
+        {
+          id: 3,
+      	  fecha_ingreso: 31/09/2016,
+    		  fecha: 29/11/2016,
+    		  lugar: "Belgrano",
+    		  descripcion: "Robo de auto",
+    		  nombre_categoria: "Robo",
+    		  estado: "Pendiente"
+        }
+        ]
+  	},
+    {
+    	dni_persona: 36949632,
+  		
+  		caso_y_rol: [
+        {
+          id: 3,
+          fecha_ingreso: 31/10/2016,
+    		  fecha: 21/03/2016,
+    		  lugar: "Retiro",
+    		  descripcion: "Robo de banco",
+    		  nombre_categoria: "Robo",
+    		  estado: "Resuelto"
+        },
+        {
+          id: 5,
+      	  fecha_ingreso: 31/09/2016,
+    		  fecha: 22/11/2016,
+    		  lugar: "Barracas",
+    		  descripcion: "Secuestro",
+    		  nombre_categoria: "Robo",
+    		  estado: "Resuelto"
+        }
+        ]
+  	}
+  
+  ]
+	
 }
+
 \end{lstlisting}
 
 \subsubsection{Rol}
