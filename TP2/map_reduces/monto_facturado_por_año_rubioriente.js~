@@ -1,0 +1,18 @@
+/* PERMITE RESOLVER:
+ *	El monto total facturado por año de las operaciones pertenecientes a usuarios con suscripciones Rubi de Oriente. */
+var mapFn = function (){
+	if (this.tipo_publicacion == 'RubiDeOriente') {
+		var monto = this.abono + this.comision;
+		emit(this.fecha, monto);
+	}
+};
+
+var reduceFn = function (fecha, montos){
+	return Array.sum(montos);
+};
+
+var options = {
+	out: 'monto_facturado_por_año_rubi_de_oriente'
+};
+
+db.facturas.mapReduce(mapFn, reduceFn, options)

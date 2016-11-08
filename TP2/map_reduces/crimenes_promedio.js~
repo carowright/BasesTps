@@ -1,0 +1,12 @@
+// Número promedio de crímenes cometidos por personas que ya han sido encontradas culpables de algún crimen.
+
+function map(){
+	if(this.estado == "Culpable") {
+		emit("acum", 1);
+	}
+}
+
+function reduce(key, values){
+	return values.length;
+}
+

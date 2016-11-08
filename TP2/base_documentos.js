@@ -116,7 +116,42 @@
 		  fecha: 29/10/2016,
 		  lugar: "Palermo",
 		  descripcion: "Robo de billetera",
-		  nombre_categoria: "Robo",
-		  estado: "Pendiente"
+		  categoría: "Robo",
+		  estado: "Pendiente",
+		  evidencias: [
+		  	idEvidencia: 1,
+		  	idEvidencia: 2,
+		  	idEvidencia: 10
+		  ]
+	}
+}
+
+// CATEGORIA
+{
+	{
+		  nombre: "Crimen",
+		  casos_criminales: [
+		  	id: 4
+		  ]
+	}
+}
+
+// PERSONAS INVOLUCRADAS EN CASO
+{
+	{
+		  id_caso_criminal: 1,
+		  personas_involucradas: [
+		  	dni_persona: 36949514
+		  ]
+	}
+}
+
+// PERSONAS CULPABLES
+{
+	{
+		  id_caso_criminal: 1,
+		  personas_culpables: [
+		  	dni_persona: 36949514
+		  ]
 	}
 }

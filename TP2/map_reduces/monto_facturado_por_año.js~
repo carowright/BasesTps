@@ -1,0 +1,21 @@
+/* PERMITE RESOLVER:
+ *	El monto total facturado por año. */
+var mapFn = function (){
+	var monto = 0;
+	if (this.abono != null)
+		monto = monto + this.abono;
+	if (this.comision != null)
+		monto = monto + this.comision;
+
+	emit(this.fecha.año, monto);
+};
+
+var reduceFn = function (año, montos){
+	return Array.sum(montos);
+};
+
+var options = {
+	out: 'monto_facturado_por_año'
+};
+
+db.facturas.mapReduce(mapFn, reduceFn, options)

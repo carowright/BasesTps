@@ -1,0 +1,21 @@
+// Personas involucradas como testigos en la mayor cantidad de casos.
+
+function map(){
+	if (this.nombre_rol == "Testigo") {
+		emit(this.nombre_rol, this.personas);
+	}
+}
+
+function reduce(witness, people) {
+
+	for (var i = 0; i < people.length; i++) {
+		amount_of_criminals += criminals[i];
+	}
+	
+	var amount_of_criminals = 0;
+	var amount_of_criminal_cases = criminals.length; 
+	
+	
+
+	return amount_of_criminals / amount_of_criminal_cases;
+}
