@@ -8,7 +8,7 @@ function reduce(acum_key, cases) {
 	var result_cases = [];
 	var max_people = 0;
 	
-	cases.foreach( function(c) {
+	cases.forEach( function(c) {
 		if (c.count > max_people) {
 			max_people = c.count;
 			result_cases = [];
@@ -18,8 +18,8 @@ function reduce(acum_key, cases) {
 			result_cases.push(c.id);
 		}
 	});
-	return result_cases;
+	return {"result": result_cases};
 }
 
-db.personasInvolucradas.mapReduce(map, reduce, {out: "result"})
+db.personasInvolucradas.mapReduce(map, reduce, {out: {inline: 1}}	)
 

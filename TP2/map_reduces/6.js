@@ -5,8 +5,8 @@ function map(){
 }
 
 function reduce(case_id, evidences){
-	return evidences.length;
+	return evidences[0].length;
 }
 
-db.casosCriminales.mapReduce(map, reduce, {out: "result"})
+db.casosCriminales.mapReduce(map, reduce, {out: {inline: 1}})
 

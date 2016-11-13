@@ -1,7 +1,7 @@
 // Número promedio de crímenes cometidos por personas que ya han sido encontradas culpables de algún crimen.
 
 function map(){
-	emit("acum", this.personas_culpables);
+	emit("acum", this.personas_culpables.length);
 }
 
 function reduce(acum_key, criminals){
@@ -15,5 +15,5 @@ function reduce(acum_key, criminals){
 	return amount_of_criminals / amount_of_criminal_cases;
 }
 
-db.personasCulpables.mapReduce(map, reduce, {out: "result"})
+db.personasCulpables.mapReduce(map, reduce, {out: {inline: 1}})
 
