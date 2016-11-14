@@ -70,132 +70,202 @@ Basándonos en el diseño entregado en el Trabajo Práctico 1, hemos creado el s
 
 \subsection{JSON schemas}
 
-\subsubsection{Persona}
+\subsubsection{Información de personas}
 \begin{lstlisting}
-{
-	dni: 36949514,
-	fecha_nacimiento: 10/11/1992,
-	nombre: "Carolina",
-	apellido: "Wright", 
-	domicilio: {
-		id: 1,
-		numero: 5950,
-		calle: "20 de febrero"
+{"type":"object ",
+	"properties":{
+		"dni_persona": {"type":"integer"},
+		"caso_y_rol": {"type":"array",
+			"items":{"type":"object ",
+				"properties":{
+					"id":{"type":"integer"},
+					"fecha_ingreso":{"type":"string", "format": "date"},
+					"fecha":{"type":"string", "format": "date"},
+					"lugar":{"type":"string"},
+					"descripcion":{"type":"string"},
+					"nombre_categoria":{"type":"string"},
+					"estado":{"type":"string"},
+					"nombre_rol": {"type":"string"}
+				}
+			}
+		}
 	}
 }
 \end{lstlisting}
 
-\subsubsection{Persona de rol}
+Este documento se creó para resolver las siguientes consultas: personas involucradas como testigos en la mayor cantidad de casos y mayor número de crímenes cometido por alguna persona.
+En ambas consultas buscamos información de las personas que participaron en casos criminales. Pudimos unificarlas en un mismo documento, agregando al mismo el rol en el caso (necesario para la primer consulta) y el nombre de la categoría del crímen (necesario para la segunda).
+
+\subsubsection{Casos criminales}
 \begin{lstlisting}
-{ 
-  [
-    {
-      nombre_rol: "Testigo"
-      personas: [
-              {
-            		dni_persona: 36949514,
-            	},
-              {
-              	dni_persona: 36949515,
-            	}
-          ]
-  },
-  {
-    nombre_rol: "Culpable"
-    personas: [
-              {
-              	dni_persona: 36949516,
-            	},
-              {
-              	dni_persona: 36949517,
-            	}
-          ]
-  }
-  ]
-  
+{"type":"object ",
+	"properties":{
+		"id": {"type":"integer"},
+		"fecha_ingreso": {"type":"string", "format": "date"},
+		"fecha": {"type":"string", "format": "date"},
+		"lugar": {"type":"string"},
+		"descripcion": {"type":"string"},
+		"categoria": {"type":"string"},
+		"evidencias": {"type":"array",
+			"items":{"type":"object ",
+				"properties":{
+					"idEvidencia":{"type":"integer"}
+				}
+			}
+		}
+	}
 }
 \end{lstlisting}
 
-\subsubsection{Información de personas}
-\begin{lstlisting}
-{
-  [
-    {
-  		dni_persona: 36949514,
-  		
-  		caso_y_rol: [
-        {
-         id: 2,
-          fecha_ingreso: 31/10/2016,
-    		  fecha: 29/10/2016,
-    		  lugar: "Palermo",
-    		  descripcion: "Robo de billetera",
-    		  nombre_categoria: "Robo",
-    		  estado: "Pendiente"
-        },
-        {
-          id: 3,
-      	  fecha_ingreso: 31/09/2016,
-    		  fecha: 29/11/2016,
-    		  lugar: "Belgrano",
-    		  descripcion: "Robo de auto",
-    		  nombre_categoria: "Robo",
-    		  estado: "Pendiente"
-        }
-        ]
-  	},
-    {
-    	dni_persona: 36949632,
-  		
-  		caso_y_rol: [
-        {
-          id: 3,
-          fecha_ingreso: 31/10/2016,
-    		  fecha: 21/03/2016,
-    		  lugar: "Retiro",
-    		  descripcion: "Robo de banco",
-    		  nombre_categoria: "Robo",
-    		  estado: "Resuelto"
-        },
-        {
-          id: 5,
-      	  fecha_ingreso: 31/09/2016,
-    		  fecha: 22/11/2016,
-    		  lugar: "Barracas",
-    		  descripcion: "Secuestro",
-    		  nombre_categoria: "Robo",
-    		  estado: "Resuelto"
-        }
-        ]
-  	}
-  
-  ]
-	
-}
+Los casos criminales nos ayudaron a resolver: cantidad de crímenes por localidad y por año, y cantidad total de evidencias por caso.
+Para ambas consultas necesitamos información de los casos. Para la primera la localidad y año, que son atributos de la entidad Caso criminal. Para la segunda, embebimos las evidencias en este documento que provienen de la relación Caso criminal - recolecta - Evidencia.
 
-\end{lstlisting}
-
-\subsubsection{Rol}
+\subsection{Personas culpables}
 \begin{lstlisting}
-{
-	nombre: "Testigo"
+{"type":"object ",
+	"properties":{
+		"id_caso_criminal": {"type":"integer"},
+		"personas_involucradas": {"type":"array",
+			"items":{"type":"object ",
+				"properties":{
+					"dni_persona":{"type":"integer"}
+				}
+			}
+		}
+	}
 }
 \end{lstlisting}
 
+Decidimos crear este documento para poder resolver la primera consulta: número promedio de crímenes cometidos por personas que ya han sido encontradas culpables de algún crimen.
+De esta forma tenemos agrupadas las personas involucradas por caso criminal. Esto nos permitirá poder filtrar dentro de las personas involucradas a las culpables.
 
-\subsubsection{Caso criminal}
+\subsection{Personas involucradas}
 \begin{lstlisting}
-{
-	  id: 1,
-	  fecha_ingreso: 31/10/2016,
-	  fecha: 29/10/2016,
-	  lugar: "Palermo",
-	  descripcion: "Robo de billetera",
-	  nombre_categoria: "Robo",
-	  estado: "Pendiente"
+{"type":"object ",
+	"properties":{
+		"id_caso_criminal": {"type":"integer"},
+		"personas_involucradas": {"type":"array",
+			"items":{"type":"object ",
+				"properties":{
+					"dni_persona":{"type":"integer"}
+				}
+			}
+		}
+	}
 }
 \end{lstlisting}
+En este caso, el documento fue pensado para resolver: casos en los que se han visto involucradas el mayor número de personas. Agrupamos las personas involucradas en los casos criminales por caso. Tomando la cantidad de los involucrados ya podemos resolver la consulta.
+
+\subsection{Categorías}
+\begin{lstlisting}
+{"type":"object ",
+	"properties":{
+		"nombre": {"type":"string"},
+		"casos_criminales": {"type":"array",
+			"items":{"type":"object ",
+				"properties":{
+					"id":{"type":"integer"},
+					"lugar":{"type":"string"}
+				}
+			}
+		}
+	}
+}
+\end{lstlisting}
+Este documento surge para poder resolver: las 10 ciudades con mayor número de crímenes. De esta forma tenemos agrupados los casos por categoría, en este caso nos concierne la categoría "Crimen" y de ella las ciudades. Por este motivo embebimos en Categoría los atributos id y lugar de Caso criminal.
 
 \section{Parte 2 - Map Reduce}
+A continuación se presentarán los algoritmos utilizados para resolver las consultas pedidas a partir de la utilización de Map-Reduce.
+
+\subsection{Número promedio de crímenes cometidos por personas que ya han sido encontradas culpables de algún crimen}
+
+\begin{lstlisting}
+function map(){
+	emit("acum", this.personas_culpables.length);
+}
+
+function reduce(acum_key, criminals){
+	var amount_of_criminals = 0;
+	var amount_of_criminal_cases = criminals.length; 
+	
+	for (var i = 0; i < amount_of_criminal_cases; i++) {
+		amount_of_criminals += criminals[i];
+	}
+
+	return amount_of_criminals / amount_of_criminal_cases;
+}
+
+db.personasCulpables.mapReduce(map, reduce, {out: {inline: 1}})
+\end{lstlisting}
+
+En esta consulta, nos interesaba calcular el promedio de los crímenes. Es por ello que fuimos acumulando estos valores, todos juntos, para luego poder calcular el promedio sobre ellos.
+
+\subsection{Personas involucradas como testigos en la mayor cantidad de casos}
+
+\subsection{Casos en los que se han visto involucradas el mayor número de personas}
+\begin{lstlisting}
+function map(){
+	emit("acum", {id: this.id_caso_criminal, count: this.personas_involucradas.length});
+}
+
+function reduce(acum_key, cases) {
+	var result_cases = [];
+	var max_people = 0;
+	
+	cases.forEach( function(c) {
+		if (c.count > max_people) {
+			max_people = c.count;
+			result_cases = [];
+			result_cases.push(c.id);
+		}
+		else if (c.count == max_people) {
+			result_cases.push(c.id);
+		}
+	});
+	return {"result": result_cases};
+}
+
+db.personasInvolucradas.mapReduce(map, reduce, {out: {inline: 1}})
+\end{lstlisting}
+
+Como buscamos de entre todos los casos, los que hayan tenido involucrados mayor cantidad de personas, nos pareció conveniente acumular estos valores y luego filtar para quedarnos con los que efectivamente cumplen lo buscado.
+El map-reduce se hace sobre la colección de personas involucradas que contiene para cada caso, una lista de las personas involucradas.
+
+\subsection{Cantidad de crímenes por localidad y por año}
+
+\begin{lstlisting}
+function map(){
+	var year = new Date(Date.parse(this.fecha)).getFullYear();
+	emit(this.lugar + year, 1);
+}
+
+function reduce(cityAndYear, count){
+	return count.length;
+}
+
+db.casosCriminales.mapReduce(map, reduce, {out: {inline: 1}})
+\end{lstlisting}
+
+En este caso, la función map agrega por cada caso que sucede en un lugar-año un elemento a la lista relacionada con ese lugar-año. Luego en la función reduce solo resta tomar el tamaño de esa lista para obtener la cantidad de crímenes asociados a esa localidad y año (pues por cada caso criminal se agrego un elemento a la lista).
+
+\subsection{Mayor número de crímenes cometido por alguna persona}
+
+\subsection{Cantidad total de evidencias por caso}
+
+\begin{lstlisting}
+function map(){
+	emit(this.id, this.evidencias);
+}
+
+function reduce(case_id, evidences){
+	return evidences.length;
+}
+
+db.casosCriminales.mapReduce(map, reduce, {out: {inline: 1}})
+\end{lstlisting}
+
+En esta consulta agrupamos por cada caso criminal, sus evidencias.
+
+\subsection{Las 10 ciudades con mayor número de crímenes}
 
 \end{document}

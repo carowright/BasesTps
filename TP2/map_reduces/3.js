@@ -21,5 +21,5 @@ function reduce(acum_key, cases) {
 	return {"result": result_cases};
 }
 
-db.personasInvolucradas.mapReduce(map, reduce, {out: {inline: 1}}	)
+db.personasInvolucradas.mapReduce(map, reduce, {out: {inline: 1}})
 

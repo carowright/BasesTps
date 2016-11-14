@@ -1,0 +1,85 @@
+// DOCUMENTOS
+
+// INFOMACION DE PERSONAS
+{"type":"object ",
+	"properties":{
+		"dni_persona": {"type":"integer"},
+		"caso_y_rol": {"type":"array",
+			"items":{"type":"object ",
+				"properties":{
+					"id":{"type":"integer"},
+					"fecha_ingreso":{"type":"string", "format": "date"},
+					"fecha":{"type":"string", "format": "date"},
+					"lugar":{"type":"string"},
+					"descripcion":{"type":"string"},
+					"nombre_categoria":{"type":"string"},
+					"estado":{"type":"string"},
+					"nombre_rol": {"type":"string"}
+				}
+			}
+		}
+	}
+}
+
+// CASO CRIMINAL
+{"type":"object ",
+	"properties":{
+		"id": {"type":"integer"},
+		"fecha_ingreso": {"type":"string", "format": "date"},
+		"fecha": {"type":"string", "format": "date"},
+		"lugar": {"type":"string"},
+		"descripcion": {"type":"string"},
+		"categoría": {"type":"string"},
+		"evidencias": {"type":"array",
+			"items":{"type":"object ",
+				"properties":{
+					"idEvidencia":{"type":"integer"}
+				}
+			}
+		}
+	}
+}
+
+// PERSONAS CULPABLES
+{"type":"object ",
+	"properties":{
+		"id_caso_criminal": {"type":"integer"},
+		"personas_involucradas": {"type":"array",
+			"items":{"type":"object ",
+				"properties":{
+					"dni_persona":{"type":"integer"}
+				}
+			}
+		}
+	}
+}
+
+// PERSONAS INVOLUCRADAS EN CASO
+{"type":"object ",
+	"properties":{
+		"id_caso_criminal": {"type":"integer"},
+		"personas_involucradas": {"type":"array",
+			"items":{"type":"object ",
+				"properties":{
+					"dni_persona":{"type":"integer"}
+				}
+			}
+		}
+	}
+}
+
+// CATEGORIA
+{"type":"object ",
+	"properties":{
+		"nombre": {"type":"string"},
+		"casos_criminales": {"type":"array",
+			"items":{"type":"object ",
+				"properties":{
+					"id":{"type":"integer"},
+					"lugar":{"type":"string"}
+				}
+			}
+		}
+	}
+}
+

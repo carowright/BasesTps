@@ -2,7 +2,7 @@
 
 function map(){
 	if (this.nombre == "Crimen") {
-		emit(this.categoria, this.casos_criminales);
+		emit(this.nombre, this.casos_criminales);
 	}	
 }
 
@@ -38,5 +38,5 @@ function groupByCity(cases) {
 	return
 }
 
-db.casosPorCategoria.mapReduce(map, reduce, {out: "result"})
+db.categorias.mapReduce(map, reduce, {out: "result"})
 

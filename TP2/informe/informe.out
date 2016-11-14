@@ -1,9 +1,16 @@
 \BOOKMARK [1][-]{section.1}{Introducci\363n}{}% 1
 \BOOKMARK [1][-]{section.2}{Dise\361o NoSql}{}% 2
 \BOOKMARK [2][-]{subsection.2.1}{JSON schemas}{section.2}% 3
-\BOOKMARK [3][-]{subsubsection.2.1.1}{Persona}{subsection.2.1}% 4
-\BOOKMARK [3][-]{subsubsection.2.1.2}{Persona de rol}{subsection.2.1}% 5
-\BOOKMARK [3][-]{subsubsection.2.1.3}{Informaci\363n de personas}{subsection.2.1}% 6
-\BOOKMARK [3][-]{subsubsection.2.1.4}{Rol}{subsection.2.1}% 7
-\BOOKMARK [3][-]{subsubsection.2.1.5}{Caso criminal}{subsection.2.1}% 8
+\BOOKMARK [3][-]{subsubsection.2.1.1}{Informaci\363n de personas}{subsection.2.1}% 4
+\BOOKMARK [3][-]{subsubsection.2.1.2}{Casos criminales}{subsection.2.1}% 5
+\BOOKMARK [2][-]{subsection.2.2}{Personas culpables}{section.2}% 6
+\BOOKMARK [2][-]{subsection.2.3}{Personas involucradas}{section.2}% 7
+\BOOKMARK [2][-]{subsection.2.4}{Categor\355as}{section.2}% 8
 \BOOKMARK [1][-]{section.3}{Parte 2 - Map Reduce}{}% 9
+\BOOKMARK [2][-]{subsection.3.1}{N\372mero promedio de cr\355menes cometidos por personas que ya han sido encontradas culpables de alg\372n crimen}{section.3}% 10
+\BOOKMARK [2][-]{subsection.3.2}{Personas involucradas como testigos en la mayor cantidad de casos}{section.3}% 11
+\BOOKMARK [2][-]{subsection.3.3}{Casos en los que se han visto involucradas el mayor n\372mero de personas}{section.3}% 12
+\BOOKMARK [2][-]{subsection.3.4}{Cantidad de cr\355menes por localidad y por a\361o}{section.3}% 13
+\BOOKMARK [2][-]{subsection.3.5}{Mayor n\372mero de cr\355menes cometido por alguna persona}{section.3}% 14
+\BOOKMARK [2][-]{subsection.3.6}{Cantidad total de evidencias por caso}{section.3}% 15
+\BOOKMARK [2][-]{subsection.3.7}{Las 10 ciudades con mayor n\372mero de cr\355menes}{section.3}% 16
