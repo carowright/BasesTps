@@ -9,7 +9,7 @@ function map(){
 
 
 function reduce(acum, people) {
-	var groupedPeople = groupPeople(people);
+
 	var max_involved = [];
 	var max_witnesses = 0;
 	
@@ -24,7 +24,7 @@ function reduce(acum, people) {
 		}
 	})
 	
-	return max_involved;
+	return {"result": max_involved};
 }
 
 db.informacionDePersonas.mapReduce(map, reduce, {out: {inline: 1}})

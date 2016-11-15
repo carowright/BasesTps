@@ -17,7 +17,7 @@ function reduce(crime, cases){
     	return elem.city;
     });
 }
-db.system.js.save(
+
 function groupByCity(cases) {
 	var groups = {};
 
@@ -37,7 +37,7 @@ function groupByCity(cases) {
 	}
 	return groups;
 }
-)
+
 db.casosCriminales.mapReduce(map, reduce, {out: {inline: 1}})
 
 

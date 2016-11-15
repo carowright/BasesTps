@@ -202,6 +202,38 @@ En esta consulta, nos interesaba calcular el promedio de los crímenes. Es por e
 
 \subsection{Personas involucradas como testigos en la mayor cantidad de casos}
 
+\begin{lstlisting}
+function map(){
+	var witness_cases = this.caso_y_rol.filter( function(caso) {
+		return caso.nombre_rol == "Testigo";});
+	if (witness_cases.length > 0) 
+		emit("acum", {dni: this.dni_persona, amount: witness_cases.length});
+}
+
+
+function reduce(acum, people) {
+
+	var max_involved = [];
+	var max_witnesses = 0;
+	
+	people.forEach( function(person) {
+		if (person.amount > max_witnesses) {
+			max_witnesses = person.amount;
+			max_involved = [];
+			max_involved.push(person.dni);
+		}
+		else if (person.amount == max_witnesses) {
+			max_involved.push(person.dni);
+		}
+	})
+	
+	return {"result": max_involved};
+}
+
+db.informacionDePersonas.mapReduce(map, reduce, {out: {inline: 1}})
+\end{lstlisting}
+
+
 \subsection{Casos en los que se han visto involucradas el mayor número de personas}
 \begin{lstlisting}
 function map(){
@@ -249,6 +281,24 @@ db.casosCriminales.mapReduce(map, reduce, {out: {inline: 1}})
 En este caso, la función map agrega por cada caso que sucede en un lugar-año un elemento a la lista relacionada con ese lugar-año. Luego en la función reduce solo resta tomar el tamaño de esa lista para obtener la cantidad de crímenes asociados a esa localidad y año (pues por cada caso criminal se agrego un elemento a la lista).
 
 \subsection{Mayor número de crímenes cometido por alguna persona}
+\begin{lstlisting}
+
+function map(){
+	var crimes = this.caso_y_rol.filter( function(caso) {
+		return caso.nombre_categoria == "Crimen";
+	})
+	if (crimes.length > 0) 
+		emit("acum", crimes.length);
+	
+}
+
+function reduce(acum, crimes_quantities) {
+	return Math.max.apply(crimes_quantities);
+}
+
+db.informacionDePersonas.mapReduce(map, reduce, {out: {inline: 1}})
+\end{lstlisting}
+
 
 \subsection{Cantidad total de evidencias por caso}
 
@@ -267,5 +317,45 @@ db.casosCriminales.mapReduce(map, reduce, {out: {inline: 1}})
 En esta consulta agrupamos por cada caso criminal, sus evidencias.
 
 \subsection{Las 10 ciudades con mayor número de crímenes}
+\begin{lstlisting}
+
+function map(){
+	if (this.nombre == "Crimen") {
+		emit(this.nombre, this.casos_criminales);
+	}	
+}
+
+function reduce(crime, cases){
+    var groupedByCity = groupByCity(cases);
+    
+    groupedByCity.sort( function(a, b) {
+        return ((a["count"] >= b["count"]) ? 1 : -1);
+    });
+    
+    return groupedByCity.slice(0, 10).map( function(elem) {
+    	return elem.city;
+    });
+}
+
+db.system.js.save(function groupByCity(cases) {
+	var groups = {};
+
+	for(var i = 0; i < cases.length; i++) {
+		var item = cases[i];
+
+		if(!groups[item.lugar]) {
+		    groups[item.lugar] = 0;
+		}
+
+		groups[item.lugar] = groups[item.lugar] + 1;
+	}
+	
+	var result_cases;
+	for (var group in groups) {
+  		result_cases.push({city: group, count: groups[group]});
+	}
+	return groups;
+})
+\end{lstlisting}
 
 \end{document}
