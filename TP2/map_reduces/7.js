@@ -7,18 +7,8 @@ function map(){
 }
 
 function reduce(crime, cases){
-    var groupedByCity = groupByCity(cases);
+    var groupedByCity;
     
-    groupedByCity.sort( function(a, b) {
-        return ((a["count"] >= b["count"]) ? 1 : -1);
-    });
-    
-    return groupedByCity.slice(0, 10).map( function(elem) {
-    	return elem.city;
-    });
-}
-db.system.js.save(
-function groupByCity(cases) {
 	var groups = {};
 
 	for(var i = 0; i < cases.length; i++) {
@@ -35,9 +25,17 @@ function groupByCity(cases) {
 	for (var group in groups) {
   		result_cases.push({city: group, count: groups[group]});
 	}
-	return groups;
+
+	groupedByCity = groups
+    groupedByCity.sort( function(a, b) {
+        return ((a["count"] >= b["count"]) ? 1 : -1);
+    });
+    
+    return groupedByCity.slice(0, 10).map( function(elem) {
+    	return elem.city;
+    });
 }
-)
+
 db.casosCriminales.mapReduce(map, reduce, {out: {inline: 1}})
 
 
