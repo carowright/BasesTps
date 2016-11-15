@@ -6,7 +6,7 @@ function map(){
 	if (witness_cases.length > 0) 
 		emit("acum", {dni: this.dni_persona, amount: witness_cases.length});
 }
-
+}
 
 function reduce(acum, people) {
 	var groupedPeople = groupPeople(people);
