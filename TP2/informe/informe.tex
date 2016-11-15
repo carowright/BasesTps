@@ -357,5 +357,7 @@ db.system.js.save(function groupByCity(cases) {
 	return groups;
 })
 \end{lstlisting}
+\subsection{Conclusión}
+Nuestra conclusión es que, conociendo las consultas más frecuentes, podemos modelar nuestra base de datos para poder recuperar la información asociada a estas consultas de una manera mucho más rápida: utilizando el modelo NoSQL. Esto nos permite evitar mantener bases de datos Relacionales SQL que requieren operaciones costosas de recuperación y joineo de tablas para consultar la información que sabemos de ante mano será consultada. Es por esto que el modelo NOSQL supera en este punto a las bases NoSQL: los documentos ya almacenan lo que necesitamos precisamente. Luego podemos consultar directamente por Key o bien relacionar las diferentes entradas de los documentos utilizando MapReduce para transformar y combinar dichas diferentes entradas de los documentos.
 
 \end{document}
